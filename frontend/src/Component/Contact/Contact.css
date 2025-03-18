@@ -1,0 +1,27 @@
+.contact-bg{
+    background-image: url('../../images/contact-page.jpg');
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+
+}
+.contact_heading{
+    font-size: 50px;
+    font-family: poppins;
+    margin-bottom: 0;
+}
+.contact_para{
+    font-family: poppins;
+    font-size: 20px;
+}
+.send_message{
+    background-color: #1d2c59;
+    border: 2px solid white;
+    color: white;
+    border-radius: 10px;
+    height: 50px;
+    width: 100%;
+    cursor: pointer;
+}

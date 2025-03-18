@@ -1,0 +1,174 @@
+/* Footer Container */
+.footer {
+  background: rgb(29 44 89);
+  padding: 40px 0;
+  padding-bottom: 1rem;
+  color: white;
+}
+
+/* Collapse Title */
+.tt-collapse-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px !important;
+  color: var(--color-orange);
+}
+
+.footer-category-heading {
+  margin: 0 !important;
+}
+
+.footer-category-name {
+  margin-top: 0 !important;
+}
+
+.footer-category-link {
+  color: white !important;
+}
+
+/* Collapse Content */
+.tt-collapse-content {
+  margin-bottom: 20px;
+}
+
+.tt-collapse-content p {
+  margin-bottom: 10px;
+}
+
+.tt-collapse-content ul.tt-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.tt-collapse-content ul.tt-list li {
+  margin-bottom: 5px;
+}
+
+.tt-collapse-content ul.tt-list li a {
+  color: white;
+  text-decoration: none;
+}
+
+.tt-collapse-content ul.tt-list li a:hover {
+  color: var(--color-orange);
+}
+
+.tt-social-icon {
+  list-style: none;
+  padding: 0;
+}
+
+.tt-social-icon li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.tt-social-icon li:last-child {
+  margin-right: 0;
+}
+
+.tt-social-icon a {
+  color: #333;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.tt-social-icon a:hover {
+  color: var(--color-orange);
+}
+
+
+/* --- copyright ---  */
+.copyright {
+  border-top: 1px solid var(--color-orange);
+  padding-top: 1rem;
+  background-color: white;
+  padding: 1rem;
+}
+
+.text {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: poppins;
+}
+
+.copyright a {
+  color: var(--color-orange);
+}
+
+.copyright a:hover {
+  text-decoration: underline !important;
+}
+
+.tt-list ul li a:hover {
+  color: gray;
+}
+
+
+
+/* ====================== fixed-pdf ================  */
+
+.fixed-pdf {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #69c7d3;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: all .5s ease;
+  background-color: #69c7d3;
+  /* line-height: 10px; */
+}
+
+.fixed-pdf svg {
+  color: white;
+  font-size: 2rem;
+}
+
+.fixed-pdf::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: block;
+  width: 50px;
+  height: 50px;
+  background-color: #69c7d3;
+  border-radius: 50%;
+  -webkit-animation: pulse-border 1500ms ease-out infinite;
+  animation: pulse-border 1500ms ease-out infinite;
+}
+
+.fixed-pdf:focus {
+  border: none;
+  outline: none;
+}
+
+.whatsapp-icon {
+  margin-top: 16px;
+}
+
+@keyframes pulse-border {
+  0% {
+    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
+    opacity: 1;
+  }
+}

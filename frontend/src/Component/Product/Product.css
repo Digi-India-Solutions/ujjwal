@@ -1,0 +1,27 @@
+.box {
+    border-radius: 30px;
+    overflow: hidden;
+    transition: 0.1s;
+  }
+  
+  .box img {
+    border-radius: 30px;
+  }
+  
+  /* Custom styles for slick carousel */
+  /* .slick-slide-custom {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .slick-slide-custom .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+   */
+/* 
+   .slick-track{
+    width: 100% !important;
+   } */

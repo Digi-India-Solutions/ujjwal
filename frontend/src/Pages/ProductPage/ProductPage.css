@@ -1,0 +1,8 @@
+.slick-dots li.slick-active button:before {
+    color: white !important;
+    /* border: 1px solid white; */
+    border-radius: 50%;
+}
+.slick-dots li button:before {
+    color: #69c7d3; 
+  }
