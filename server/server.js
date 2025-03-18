@@ -11,30 +11,24 @@ const newLanchRouter = require("./Route/NewLanchRouter");
 const BlogRouter = require("./Route/BlogRouter.js");
 
 const app = express();
-const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:3001",
-  "http://localhost:3002",
-  "https://www.assortsmachinetools.com",
-  "https://assortsmachinetools.com",
-  "https://admin.assortsmachinetools.com",
-];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
-);
 
 app.use(express.json());
 app.set(express.static("./Public/Image"));
 app.use("/Public", express.static("Public"));
+app.use(
+  cors({
+    origin:[
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "http://localhost:3002",
+      "https://www.assortsmachinetools.com",
+      "https://assortsmachinetools.com",
+      "https://admin.assortsmachinetools.com",
+    ],
+    methods: "GET,POST,DELETE,PATCH",
+  })
+);
+app.options("*", cors());
 
 app.get("/", (req, res) => {
   res.send("Server Is Running");
