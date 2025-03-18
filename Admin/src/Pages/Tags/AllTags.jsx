@@ -12,7 +12,7 @@ const AllTags = () => {
 
     const getApiData = async () => {
         try {
-            let res = await axios.get("http://localhost:8001/api/subcategory");
+            let res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
             const newData = res.data.data;
             setData(newData.reverse());
         } catch (error) {
@@ -22,7 +22,7 @@ const AllTags = () => {
 
     const deleteRecord = async (_id) => {
         try {
-            let res = await axios.delete("http://localhost:8001/api/subcategory/" + _id);
+            let res = await axios.delete("https://api.assortsmachinetools.com/api/subcategory/" + _id);
             if (res.status === 200) {
                 toast.success("Subcategory Deleted Successfully");
             }

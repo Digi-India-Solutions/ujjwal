@@ -18,7 +18,7 @@ const CategoryPage = () => {
 
   const getApiData = async () => {
     try {
-      let res = await axios.get("http://localhost:8001/api/subcategory");
+      let res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
       const newData = res.data.data;
 
       const groupedData = newData.reduce((acc, item) => {
@@ -43,7 +43,7 @@ const CategoryPage = () => {
 
   const getCategorydata = async () => {
     try {
-      let res = await axios.get("http://localhost:8001/api/category");
+      let res = await axios.get("https://api.assortsmachinetools.com/api/category");
       setData(res.data.data);
     } catch (error) {
       console.log(error);
@@ -77,7 +77,7 @@ const CategoryPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const getApiDataNewLanch = async () => {
     try {
-      const res = await axios.get("http://localhost:8001/api/new-lanch");
+      const res = await axios.get("https://api.assortsmachinetools.com/api/new-lanch");
       if (res.status === 200) {
         const data = res.data;
         const filterData = data.filter((x) => x.active === true);
@@ -182,7 +182,7 @@ const CategoryPage = () => {
                       <article className="card">
                         <Link to={`/our-category/products/${item._id}`}>
                           <div className="card__img">
-                            <img src={`http://localhost:8001/${item.image}`} alt={item.categoryname} />
+                            <img src={`https://api.assortsmachinetools.com/${item.image}`} alt={item.categoryname} />
                           </div>
                           <div className="card__name">
                             <p style={{ margin: "0" }}>
@@ -237,7 +237,7 @@ const CategoryPage = () => {
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <img
                         style={{ borderRadius: "10px", cursor: "pointer" , height: "120px" , width: "120px" }}
-                        src={`http://localhost:8001/${product.image}`}
+                        src={`https://api.assortsmachinetools.com/${product.image}`}
                         alt="New Launch Product"
                         onClick={() => handleOpenModal(product)}
                       />
@@ -316,7 +316,7 @@ const CategoryPage = () => {
                 {selectedProduct && (
                   <>
                     <img
-                      src={`http://localhost:8001/${selectedProduct.image}`}
+                      src={`https://api.assortsmachinetools.com/${selectedProduct.image}`}
                       alt="Product"
                       style={{ width: "100%", borderRadius: "10px" }}
                     />

@@ -14,7 +14,7 @@ const AllProductPage = () => {
 
   const getCategorydata = async () => {
     try {
-      let res = await axios.get(`http://localhost:8001/api/category/${_id}`);
+      let res = await axios.get(`https://api.assortsmachinetools.com/api/category/${_id}`);
       setCatedata(res.data.data);
     } catch (error) {
       console.log(error);
@@ -23,7 +23,7 @@ const AllProductPage = () => {
 
   const getSubCategorydata = async () => {
     try {
-      let res = await axios.get(`http://localhost:8001/api/subcategory/${_id}`);
+      let res = await axios.get(`https://api.assortsmachinetools.com/api/subcategory/${_id}`);
       setSubcatedata(res.data.data);
     } catch (error) {
       console.log(error);
@@ -32,7 +32,7 @@ const AllProductPage = () => {
 
   const getAllProductData = async () => {
     try {
-      let res = await axios.get('http://localhost:8001/api/product');
+      let res = await axios.get('https://api.assortsmachinetools.com/api/product');
       const resData = res.data.data;
       const filterData = resData.filter((item) => {
         return (
@@ -94,7 +94,7 @@ const AllProductPage = () => {
                     <article className="card">
                       <Link to={`/our-category/category/product-name/${item._id}`}>
                         <div className="card__img">
-                          <img src={`http://localhost:8001/${item.image1}`} alt={item.name} />
+                          <img src={`https://api.assortsmachinetools.com/${item.image1}`} alt={item.name} />
                         </div>
                         <div className="card__name">
                           <p>{item.categoryname}</p>

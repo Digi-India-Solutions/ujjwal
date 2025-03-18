@@ -14,7 +14,7 @@ const AddProduct = () => {
 
     const getApiData = async () => {
         try {
-            let res = await axios.get("http://localhost:8001/api/category");
+            let res = await axios.get("https://api.assortsmachinetools.com/api/category");
             setCatedata(res.data.data);
         } catch (error) {
             console.log(error);
@@ -23,7 +23,7 @@ const AddProduct = () => {
 
     const getApiSubData = async (categoryName) => {
         try {
-            let res = await axios.get("http://localhost:8001/api/subcategory");
+            let res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
             // Filter subcategories based on selected category
             const filteredSubcategories = res.data.data.filter(item => item.categoryname === categoryName);
             setSubcatedata(filteredSubcategories);
@@ -73,7 +73,7 @@ const AddProduct = () => {
             formData.append("image4", data.image4);
             formData.append("tableData", data.tableData);
             setLoading(true);
-            const res = await axios.post("http://localhost:8001/api/product", formData);
+            const res = await axios.post("https://api.assortsmachinetools.com/api/product", formData);
             if (res.status === 200) {
                 toast.success("New Product created");
                 navigate("/all-products");

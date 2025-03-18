@@ -11,7 +11,7 @@ const Product = () => {
   const getCategoryData = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8001/api/category"
+        "https://api.assortsmachinetools.com/api/category"
       );
       console.log(res);
       setData(res.data.data);
@@ -86,7 +86,7 @@ const Product = () => {
                       className="product"
                       width="100%"
                       style={{ height: "200px" }}
-                      src={`http://localhost:8001/${item.image}`}
+                      src={`https://api.assortsmachinetools.com/${item.image}`}
                       alt={item.categoryname}
                     />
                     <Typography

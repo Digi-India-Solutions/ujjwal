@@ -67,7 +67,7 @@ const AllBlogs = () => {
             {currentItems.map((item, index) => (
               <tr key={item._id}>
                 <th scope="row">{index + 1}</th>
-                <td><img src={`http://localhost:8001/${item.image}`} alt={item.name} style={{ width: "100px", height: "100px" }} /></td>
+                <td><img src={`https://api.assortsmachinetools.com/${item.image}`} alt={item.name} style={{ width: "100px", height: "100px" }} /></td>
                 <td>{item.name}</td>
                 <td>{item.description}</td>
                 <td><Link className="bt edit" to={`/edit-blog/${item._id}`}>Edit <i className="fa-solid fa-pen-to-square"></i></Link></td>

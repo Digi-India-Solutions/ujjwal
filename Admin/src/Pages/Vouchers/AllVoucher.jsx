@@ -11,7 +11,7 @@ const AllVoucher = () => {
     useEffect(() => {
         const fetchVouchers = async () => {
             try {
-                const response = await axios.get('http://localhost:8001/api/new-lanch');
+                const response = await axios.get('https://api.assortsmachinetools.com/api/new-lanch');
                 setVouchers(response.data);
                 setIsLoading(false);
             } catch (error) {
@@ -26,7 +26,7 @@ const AllVoucher = () => {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this voucher?")) {
             try {
-                await axios.delete(`http://localhost:8001/api/new-lanch/${id}`);
+                await axios.delete(`https://api.assortsmachinetools.com/api/new-lanch/${id}`);
                 setVouchers(vouchers.filter(voucher => voucher._id !== id));
                 toast.success("Voucher deleted successfully");
             } catch (error) {
@@ -37,7 +37,7 @@ const AllVoucher = () => {
 
     const handleCheckboxChange = async (id, currentStatus) => {
         try {
-            await axios.put(`http://localhost:8001/api/new-lanch/${id}`, {
+            await axios.put(`https://api.assortsmachinetools.com/api/new-lanch/${id}`, {
                 active: !currentStatus,
             });
             setVouchers(vouchers.map(voucher =>
@@ -84,7 +84,7 @@ const AllVoucher = () => {
                                     <td>{voucher.productName}</td>
                                     <td>
                                         <img
-                                            src={`http://localhost:8001/${voucher.image}`}
+                                            src={`https://api.assortsmachinetools.com/${voucher.image}`}
                                             alt={voucher.productName}
                                             style={{ width: '100px', height: 'auto' }}
                                         />

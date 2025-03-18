@@ -13,7 +13,7 @@ const SearchByCategory = () => {
     // Fetch subcategories from the API
     const fetchSubcategories = async () => {
       try {
-        const response = await axios.get('http://localhost:8001/api/subcategory');
+        const response = await axios.get('https://api.assortsmachinetools.com/api/subcategory');
         if (response.data.success) {
           setSubcategories(response.data.data);
         }

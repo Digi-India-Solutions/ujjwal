@@ -15,7 +15,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:8001/api/subcategory");
+        const res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
         const newData = res.data.data;
 
         const groupedData = newData.reduce((acc, item) => {

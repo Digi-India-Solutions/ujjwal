@@ -10,7 +10,7 @@ const Blog = () => {
   // Fetch Blogs from API
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get("http://localhost:8001/api/blog/get");
+      const response = await axios.get("https://api.assortsmachinetools.com/api/blog/get");
       // console.log(response.data)
       setBlogs(response.data.data);
     } catch (error) {
@@ -43,7 +43,7 @@ const Blog = () => {
         {blogs.map((blog) => (
           <Grid item xs={12} sm={6} md={4} key={blog._id}>
             <Card className="blog-card">
-              <CardMedia component="img" height="200" image={`http://localhost:8001/${blog.image}`} alt={blog.name} />
+              <CardMedia component="img" height="200" image={`https://api.assortsmachinetools.com/${blog.image}`} alt={blog.name} />
               <CardContent>
                 <Typography variant="h6">{blog.name}</Typography>
                 <Typography variant="body2" color="textSecondary">{blog.description}</Typography>
