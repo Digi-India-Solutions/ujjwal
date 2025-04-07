@@ -65,24 +65,24 @@ const Contact = () => {
               <Grid xs={12} md={6} p={5}>
                 <Typography class="contact_heading">Contact Us</Typography>
                 <Typography class="contact_para">
-                  Not sure what you need ? The team at Square event will be
-                  happy to listen to you and suggest event idea you hadn't
-                  considered
+                At Assorts, we are committed to providing high-quality machine tools and accessories to meet your needs. Whether you have questions about our products, need expert advice, or require assistance with an order, our team is here to help!
+
                 </Typography>
                 <Typography mt={5} mb={1}>
                   <Link
-                    to="mailto:sales@assortsmachinetools.com"
+                    to="mailto:contact@assortsmachinetools.com"
                     style={{ display: "flex", color: "white", gap: "10px" }}
                   >
-                    <MailOutlineIcon /> sales@assortsmachinetools.com
+                    <MailOutlineIcon /> contact@assortsmachinetools.com
                   </Link>
                 </Typography>
                 <Typography>
                   <Link
-                    to="tel:+91 11 45037429"
+                    to="tel:+919625670144"
                     style={{ display: "flex", color: "white", gap: "10px" }}
                   >
-                    <CallIcon /> + 91 11 45037429
+                    <CallIcon /> + 91 9625670144 / +91 11 45037429
+
                   </Link>
                 </Typography>
               </Grid>
@@ -97,11 +97,8 @@ const Contact = () => {
                         borderRadius: "1rem",
                       }}
                     >
-                      <Typography variant="h5">
-                        We'd love to hear from you
-                      </Typography>
-                      <Typography variant="h5" mb={5}>
-                        Let's get in touch
+                      <Typography variant="h6" mb={5}>
+                      Fill out the form, and we’ll get back to you as soon as possible. We look forward to assisting you with the best solutions for your machining needs!
                       </Typography>
                       <Grid container spacing={2}>
                         <Grid item xs={12} md={6}>

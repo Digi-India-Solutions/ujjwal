@@ -97,7 +97,11 @@ const AllProductPage = () => {
                           <img src={`https://api.assortsmachinetools.com/${item.image1}`} alt={item.name} />
                         </div>
                         <div className="card__name">
-                          <p>{item.categoryname}</p>
+                        <p style={{ margin: "0" }}>
+                              {item.categoryname.length > 15
+                                ? `${item.categoryname.substring(0, 15)}...`
+                                : item.categoryname}
+                            </p>
                         </div>
                         <div
                           className="CardContentBottom"

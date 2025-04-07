@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../Footer/Footer.css";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -13,6 +13,7 @@ const Footer = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchCategories = async () => {
       try {
         const res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
@@ -80,19 +81,23 @@ const Footer = () => {
               <div className="tt-mobile-collapse">
                 <Typography variant="h6" className="tt-collapse-title">Categories</Typography>
                 <div className="tt-collapse-content">
-                  {categories.map((category) => (
+                  {categories.slice(0, 5).map((category) => (
                     <div key={category.name} className="footer-category">
-                      <Typography className="footer-category-heading"><ArrowForwardIosIcon style={{fontSize:'14px'}} /> {category.name}</Typography>
-                      {category.items.map((item) => (
-                        <p className="footer-category-name" key={item._id}>
-                          <Link className="footer-category-link" to={`/our-category/products/${item._id}`}>
-                            {item.subcategoryName}
-                          </Link>
-                        </p>
-                      ))}
+                      <Typography className="footer-category-heading">
+                        <ArrowForwardIosIcon style={{ fontSize: '14px' }} /> {category.name}
+                      </Typography>
                     </div>
                   ))}
+
+                  {categories.length > 5 && (
+                    <div className="footer-view-more">
+                      <Button variant="outlined" className="view-more-button">
+                        <Link to="/our-category" className="view-more-link">View More</Link>
+                      </Button>
+                    </div>
+                  )}
                 </div>
+
               </div>
             </Grid>
 

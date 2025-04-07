@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Container, Typography, Button } from "@mui/material";
-import "./BlogDetails.css"; 
+import "./BlogDetails.css";
 import axios from "axios";
 
 const BlogDetails = () => {
@@ -23,7 +23,7 @@ const BlogDetails = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     getBlogDetail();
-  }, [id]); 
+  }, [id]);
 
   if (error) {
     return (
@@ -61,13 +61,13 @@ const BlogDetails = () => {
       >
         {blogPost.title}
       </Typography>
-      
+
       <div className="blog-image-container">
         <img src={`https://api.assortsmachinetools.com/${blogPost.image}`} alt={blogPost.title} className="blog-image" />
       </div>
 
-      <Typography variant="body1" className="blog-content">
-        {blogPost.content}
+      <Typography variant="body1" className="blog-content" dangerouslySetInnerHTML={{ __html: blogPost.content }}>
+
       </Typography>
 
       <div className="button-container">

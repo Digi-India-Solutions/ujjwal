@@ -233,10 +233,10 @@ const CategoryPage = () => {
             {newProduct && newProduct.length > 0 ? (
               <div>
                 {displayedProducts?.map((product, index) => (
-                  <div key={index} className="productCard" style={{ marginBottom: "0px", padding: "10px" }}>
+                  <div key={index} className="productCard" style={{padding: "10px" }}>
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <img
-                        style={{ borderRadius: "10px", cursor: "pointer" , height: "120px" , width: "120px" }}
+                        style={{ borderRadius: "10px", cursor: "pointer" , height: "120px" , width: "100%" }}
                         src={`https://api.assortsmachinetools.com/${product.image}`}
                         alt="New Launch Product"
                         onClick={() => handleOpenModal(product)}

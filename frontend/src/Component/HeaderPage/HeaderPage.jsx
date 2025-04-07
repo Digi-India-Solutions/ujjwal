@@ -333,6 +333,11 @@ const HeaderPage = () => {
               </Link>
             </li>
             <li className="responsiveli">
+              <Link to={"/blog"} onClick={closeMenu}>
+                Blog
+              </Link>
+            </li>
+            <li className="responsiveli">
               <div style={{ display: "flex", alignItems: "center" }}>
                 Category <KeyboardDoubleArrowRightIcon />
               </div>

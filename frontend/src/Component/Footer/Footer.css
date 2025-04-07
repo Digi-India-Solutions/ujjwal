@@ -4,6 +4,7 @@
   padding: 40px 0;
   padding-bottom: 1rem;
   color: white;
+  margin-top: 1rem;
 }
 
 /* Collapse Title */
@@ -33,6 +34,7 @@
 
 .tt-collapse-content p {
   margin-bottom: 10px;
+  text-transform: capitalize !important;
 }
 
 .tt-collapse-content ul.tt-list {
@@ -105,6 +107,12 @@
   color: gray;
 }
 
+.view-more-button a {
+  display: inline-block;
+  color: white !important;
+  text-decoration:none;
+  cursor: pointer;
+}
 
 
 /* ====================== fixed-pdf ================  */

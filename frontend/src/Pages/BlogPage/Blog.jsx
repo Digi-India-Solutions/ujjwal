@@ -46,7 +46,7 @@ const Blog = () => {
               <CardMedia component="img" height="200" image={`https://api.assortsmachinetools.com/${blog.image}`} alt={blog.name} />
               <CardContent>
                 <Typography variant="h6">{blog.name}</Typography>
-                <Typography variant="body2" color="textSecondary">{blog.description}</Typography>
+                <Typography variant="body2" color="textSecondary" dangerouslySetInnerHTML={{ __html: blog.description }}></Typography>
                 <Button variant="contained" className="read-more-btn">
                   <Link to={`/blog/${blog._id}`} style={{ textDecoration: "none", color: "white" }}>
                     Read More

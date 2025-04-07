@@ -117,7 +117,7 @@ a {
   position: absolute;
   left: -32%;
   top: 0;
-  width: 50px;
+  width: 35px;
   height: 100%;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
@@ -249,7 +249,7 @@ footer {
 }
 
 .bottomContent {
-  font-size: 12px;
+  font-size: 14px;
   color: white;
   max-width: 100%;
   margin: auto;
@@ -301,17 +301,20 @@ footer {
   padding: 1rem;
   transition: 1s ease;
   line-height: 35px;
-  border-radius: 32px;
+  border-radius: 0px;
 }
 
 .sidebar-category {
   border-bottom: 3px solid #69c7d3;
   transition: background-color 0.3s ease;
   margin-bottom: 15px;
+  cursor: pointer;
+  line-height: 1.4;
+  padding: 5px 0px;
 }
 
 .sidebar-category:hover {
-  background-color: rgba(24, 29, 69, 0.752);
+  background-color: rgba(24, 29, 69, 0.747) !important;
 }
 
 .dropdown {
@@ -380,6 +383,7 @@ footer {
 }
 .sidebar-items li a{
   color: white !important;
+  line-height: 1;
 }
 
 .sidebar-items li:hover {
@@ -406,4 +410,5 @@ footer {
   border: 1px solid lightgray;
   border-bottom: 10px solid #181d45;
   border-radius: 10px;
+  margin-bottom: 1rem;
 }
