@@ -25,7 +25,7 @@ app.use(
       "https://assortsmachinetools.com",
       "https://admin.assortsmachinetools.com",
     ],
-    methods: "GET,POST,DELETE,PATCH",
+    methods: "GET,POST,DELETE,PATCH,PUT",
   })
 );
 app.options("*", cors());
