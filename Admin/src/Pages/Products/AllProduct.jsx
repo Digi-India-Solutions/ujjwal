@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const AllProduct = () => {
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(3); // Number of items per page
+    const [itemsPerPage] = useState(10); // Number of items per page
 
     const getApiData = async () => {
         try {

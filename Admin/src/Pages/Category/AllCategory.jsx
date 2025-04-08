@@ -10,7 +10,7 @@ const AllCategory = () => {
     const dispatch = useDispatch();
     const { categories, loading } = useSelector((state) => state.category); // Use Redux state
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 2; // This can be a constant or dynamic if you want
+    const itemsPerPage = 5; // This can be a constant or dynamic if you want
 
     useEffect(() => {
         dispatch(fetchCategories()); // Fetch categories on component mount
