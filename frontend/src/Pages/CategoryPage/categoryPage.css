@@ -256,8 +256,7 @@ footer {
   margin-bottom: 10px;
 }
 
-
-.launch-buttons{
+.launch-buttons {
   display: flex;
   justify-content: space-around;
   margin-top: 8px;
@@ -265,7 +264,7 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-  .launch-buttons{
+  .launch-buttons {
     justify-content: center;
   }
   .card__name {
@@ -276,7 +275,7 @@ footer {
     height: 100%;
   }
 
-  .card__img img{
+  .card__img img {
     height: 130px;
     width: 100%;
   }
@@ -381,7 +380,7 @@ footer {
   align-items: center;
   background-color: #69c7d3;
 }
-.sidebar-items li a{
+.sidebar-items li a {
   color: white !important;
   line-height: 1;
 }
@@ -398,11 +397,12 @@ footer {
 
 .viewButton {
   border: 1px solid;
-  padding: 7px;
-  width: 80px;
+  padding: 10px 5px;
+  width: 100px;
   background-color: #69c7d3;
   color: white;
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
 }
 

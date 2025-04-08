@@ -1,16 +1,14 @@
-import About from "../../Component/About/About"
-import MapSection from "../../Component/MapSection/MapSection"
-import Metatag from "../../Component/MetaTags/Metatag"
-import Product from "../../Component/Product/Product"
-import Testimonial from "../../Component/Testimonial/Testimonial"
-import CategoryPage from "../CategoryPage/CategoryPage"
-import ProductPage from "../ProductPage/ProductPage"
+import About from "../../Component/About/About";
+import MapSection from "../../Component/MapSection/MapSection";
+import Metatag from "../../Component/MetaTags/Metatag";
+import Product from "../../Component/Product/Product";
+import Testimonial from "../../Component/Testimonial/Testimonial";
+import CategoryPage from "../CategoryPage/CategoryPage";
+import ProductPage from "../ProductPage/ProductPage";
 
 function Home() {
-
   return (
     <div>
-
       <Metatag
         title="Assorts - Leading Manufacturer-Exporter of Precision Machine Tools"
         description="Assorts is a trusted manufacturer and exporter of precision tools, accessories for machinists, woodworkers, hobbyists, and more. With over four decades of experience, we offer high-quality machine tools at competitive prices."
@@ -23,7 +21,7 @@ function Home() {
       <Testimonial />
       <MapSection />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
