@@ -4,7 +4,7 @@ const path = require("path");
 
 const createRecord = async (req, res) => {
     try {
-        const { categoryname } = req.body;
+        const { categoryname,active } = req.body;
         if (!categoryname) {
             return res.status(403).json({
                 success: false,
@@ -15,6 +15,9 @@ const createRecord = async (req, res) => {
             if (req.file) {
                 const localPath =req.file.path;
                 data.image = localPath;
+            }
+            if(active){
+                data.active = active;
             }
             await data.save();
             res.status(200).json({
@@ -82,6 +85,7 @@ const updateRecord = async (req, res) => {
         let data = await productCategory.findOne({ _id: req.params._id });
         if (data) {
             data.categoryname = req.body.categoryname ?? data.categoryname;
+            data.active = req.body.active ?? data.active;
             if (req.file) {
                 // Delete the old image from local storage
                 if (data.image) {
@@ -144,10 +148,34 @@ const deleteRecord = async (req, res) => {
     }
 };
 
+const newLauchCategory = async (req, res) => {        
+    try {
+        let data = await productCategory.find({active:true});
+        if (data) {
+            res.status(200).json({
+                success: true,
+                mess: "All Category found",
+                data: data
+            });
+        } else {
+            res.status(403).json({
+                success: true,
+                mess: "Category Not Found"
+            });
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            mess: "Internal server error"
+        });
+    }
+}
 module.exports = {
     createRecord,
     getRecord,
     getSingleRecord,
     updateRecord,
-    deleteRecord
+    deleteRecord,
+    newLauchCategory
 };

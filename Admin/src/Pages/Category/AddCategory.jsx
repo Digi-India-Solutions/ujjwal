@@ -10,7 +10,7 @@ const AddCategory = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading } = useSelector((state) => state.category);
-
+const [active, setActive] = useState(false);
     const getInputData = (e) => {
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
@@ -26,6 +26,7 @@ const AddCategory = () => {
         const formData = new FormData();
         formData.append("categoryname", data.categoryname);
         formData.append("image", data.image);
+        formData.append("active", active);
         dispatch(addCategory(formData))
             .unwrap()
             .then(() => {
@@ -59,6 +60,28 @@ const AddCategory = () => {
                         <label htmlFor="image" className="form-label">Category Image <sup className='text-danger'>*</sup></label>
                         <input type="file" name="image" id="image" className="form-control" onChange={getFileData} required/>
                     </div>
+                    <div
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#333",
+            }}
+          >
+            <input
+              type="checkbox"
+              name="active"
+              id="active"
+              checked={active}
+              onChange={(e) => setActive(e.target.checked)}
+              style={{ width: "16px", height: "16px" }}
+            />
+            <label htmlFor="active">Active</label>
+          </div>
                     <button type="submit" className="mybtnself" disabled={loading}>
                         {loading ? 'Loading...' : 'Add Category'}
                     </button>

@@ -35,6 +35,10 @@ const productSchema = new mongoose.Schema({
     },
     tableData:{
         type:String
+    },
+    active:{
+        type:Boolean,
+        default:false
     }
 })
 

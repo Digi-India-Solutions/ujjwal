@@ -40,12 +40,18 @@ const EditProduct = () => {
         image2: '',
         image3: '',
         image4: '',
-        tableData: ''
+        tableData: '',
+        active: false,
     });
 
     const getInputData = (e) => {
+        if(e.target.name ==="active"){
+            setData({ ...data, [e.target.name]: e.target.checked });
+        }else{
+
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
+        }
     };
 
     const getInputfile = (e) => {
@@ -76,6 +82,7 @@ const EditProduct = () => {
             formData.append("image3", data.image3);
             formData.append("image4", data.image4);
             formData.append("tableData", data.tableData);
+            formData.append("active", data.active);
             setLoading(true);
             const res = await axios.put(`https://api.assortsmachinetools.com/api/product/${_id}`, formData);
             if (res.status === 200) {
@@ -172,6 +179,28 @@ const EditProduct = () => {
                             placeholder="Enter product details here..."
                         />
                     </div>
+                    <div
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#333",
+            }}
+          >
+            <input
+              type="checkbox"
+              name="active"
+              id="active"
+              checked={data.active || ""}
+              onChange={getInputData}
+              style={{ width: "16px", height: "16px" }}
+            />
+            <label htmlFor="active">Active</label>
+          </div>
                     <button type="submit" className="mybtnself" style={{ marginBottom: 100 }}>{loading ? "Please wait..." : "Update Product"}</button>
                 </form>
             </div>

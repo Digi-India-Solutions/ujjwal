@@ -12,7 +12,8 @@ const EditCategory = () => {
     const category = useSelector((state) => state.category.category); // Correctly access category from state
     const [data, setData] = useState({
         categoryname: "",
-        image: "" // This will only be used for display, not form input
+        image: "", // This will only be used for display, not form input
+        active: false,
     });
     const [loading, setLoading] = useState(false);
 
@@ -24,14 +25,19 @@ const EditCategory = () => {
         if (category) {
             setData({
                 categoryname: category.categoryname || "",
-                image: category.image || "" // Set image URL for preview
+                image: category.image || "", // Set image URL for preview
+                active: category.active || false,
             });
         }
     }, [category]);
 
     const getInputData = (e) => {
+        if(e.target.name === "active") {
+            setData({ ...data, [e.target.name]: e.target.checked });
+        } else {
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
+        }
     };
 
     const getFileData = (e) => {
@@ -46,7 +52,7 @@ const EditCategory = () => {
         if (data.image) {
             formData.append("image", data.image);
         }
-
+formData.append("active", data.active);
         setLoading(true);
         try {
             await dispatch(updateCategory({ id: _id, formData }));
@@ -95,6 +101,28 @@ const EditCategory = () => {
                             onChange={getFileData}
                         />
                     </div>
+                    <div
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#333",
+            }}
+          >
+            <input
+              type="checkbox"
+              name="active"
+              id="active"
+              checked={data.active}
+              onChange={getInputData}
+              style={{ width: "16px", height: "16px" }}
+            />
+            <label htmlFor="active">Active</label>
+          </div>
                     <button type="submit" className="mybtnself" disabled={loading}>
                         {loading ? 'Updating...' : 'Update Category'}
                     </button>

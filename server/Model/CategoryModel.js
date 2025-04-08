@@ -8,6 +8,10 @@ const categorySchema = new mongoose.Schema({
     image:{
         type:String,
         required:[true,"Category Image is must Required"]
+    },
+    active:{
+        type:Boolean,
+        default:false
     }
 })
 
