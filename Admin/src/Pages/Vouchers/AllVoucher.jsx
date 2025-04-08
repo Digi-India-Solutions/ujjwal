@@ -1,124 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AllVoucher = () => {
-    const [vouchers, setVouchers] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState([])
 
-    useEffect(() => {
-        const fetchVouchers = async () => {
-            try {
-                const response = await axios.get('https://api.assortsmachinetools.com/api/new-lanch');
-                setVouchers(response.data);
-                setIsLoading(false);
-            } catch (error) {
-                toast.error("Error fetching vouchers");
-                setIsLoading(false);
-            }
-        };
-
-        fetchVouchers();
-    }, []);
-
-    const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this voucher?")) {
-            try {
-                await axios.delete(`https://api.assortsmachinetools.com/api/new-lanch/${id}`);
-                setVouchers(vouchers.filter(voucher => voucher._id !== id));
-                toast.success("Voucher deleted successfully");
-            } catch (error) {
-                toast.error("Error deleting voucher");
-            }
-        }
-    };
-
-    const handleCheckboxChange = async (id, currentStatus) => {
+    const getApiData = async () => {
         try {
-            await axios.put(`https://api.assortsmachinetools.com/api/new-lanch/${id}`, {
-                active: !currentStatus,
-            });
-            setVouchers(vouchers.map(voucher =>
-                voucher._id === id ? { ...voucher, active: !currentStatus } : voucher
-            ));
-            toast.success("Status updated successfully");
+            const res = await axios.get("https://api.assortsmachinetools.com/api/get-all-enquiry")
+            // console.log(res)
+            const newData = res.data.data
+            console.log("new Data", newData);
+            
+            setData(newData.reverse())
         } catch (error) {
-            toast.error("Error updating status");
+            console.log(error)
         }
-    };
-
+    }
+    useEffect(() => {
+        getApiData()
+    }, [data.length])
     return (
         <>
             <ToastContainer />
             <div className="bread">
                 <div className="head">
-                    <h4>All New Launch</h4>
+                    <h4>All Enquiry Query </h4>
                 </div>
-                <div className="links">
-                    <Link to="/add-voucher" className="add-new">Add New <i className="fa-solid fa-plus"></i></Link>
-                </div>
+                {/* <div className="links">
+                    <Link to="/add-shop-banner" className="add-new">Add New <i class="fa-solid fa-plus"></i></Link>
+                </div> */}
             </div>
-            <section className="mt-2 d-table table-responsive">
-                <table className="table table-bordered table-striped table-hover">
+
+            {/* <div className="filteration">
+                <div className="selects">
+                    <select>
+                        <option>Ascending Order </option>
+                        <option>Descending Order </option>
+                    </select>
+                </div>
+                <div className="search">
+                    <label htmlFor="search">Search </label> &nbsp;
+                    <input type="text" name="search" id="search" />
+                </div>
+            </div> */}
+
+            <section className="d-table ">
+                <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">S No.</th>
+                            <th scope="col">Sr.No.</th>
+                            <th scope="col">Name</th>
                             <th scope="col">Product Name</th>
-                            <th scope="col">Product Image</th>
-                            <th scope="col">Active</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Delete</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Message</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {isLoading ? (
-                            <tr>
-                                <td colSpan="6" className="text-center">Loading...</td>
-                            </tr>
-                        ) : (
-                            vouchers.length > 0 ? vouchers.map((voucher, index) => (
-                                <tr key={voucher._id}>
-                                    <td>{index + 1}</td>
-                                    <td>{voucher.productName}</td>
-                                    <td>
-                                        <img
-                                            src={`https://api.assortsmachinetools.com/${voucher.image}`}
-                                            alt={voucher.productName}
-                                            style={{ width: '100px', height: 'auto' }}
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="checkbox"
-                                            checked={voucher.active}
-                                            onChange={() => handleCheckboxChange(voucher._id, voucher.active)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Link to={`/edit-voucher/${voucher._id}`} className="btn btn-warning btn-sm">Edit</Link>
-                                    </td>
-                                    <td>
-                                        <button
-                                            onClick={() => handleDelete(voucher._id)}
-                                            className="btn btn-danger btn-sm"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            )) : (
-                                <tr>
-                                    <td colSpan="6" className="text-center">No vouchers found</td>
+                        {
+                            data.map((item, index) =>
+                                <tr key={index}>
+                                    <th scope="row">{index+1}</th>
+                                    <td>{item.name}</td>
+                                    <td>{item.productName}</td>
+                                    <td>{item.email}</td>
+                                    <td>{item.phone}</td>
+                                    <td>{item.message}</td>
+                               
                                 </tr>
                             )
-                        )}
+                        }
                     </tbody>
                 </table>
             </section>
         </>
-    );
-};
+    )
+}
 
-export default AllVoucher;
+export default AllVoucher

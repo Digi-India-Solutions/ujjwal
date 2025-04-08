@@ -61,7 +61,7 @@ const CreateVoucher = () => {
             <ToastContainer />
             <div className="bread">
                 <div className="head">
-                    <h4>Add New Lanch Product</h4>
+                    <h4>AddEnquiry Query Product</h4>
                 </div>
                 <div className="links">
                     <Link to="/all-voucher" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
@@ -114,7 +114,7 @@ const CreateVoucher = () => {
                             disabled={isLoading}
                             className={`${isLoading ? 'not-allowed' : 'allowed'}`}
                         >
-                            {isLoading ? "Please Wait..." : "Add New Lanch"}
+                            {isLoading ? "Please Wait..." : "AddEnquiry Query"}
                         </button>
                     </div>
                 </form>

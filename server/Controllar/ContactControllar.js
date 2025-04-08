@@ -92,6 +92,8 @@ const deleteRecord = async (req, res) => {
         })
     }
 }
+
+
 module.exports = {
     createRecord: createRecord,
     deleteRecord:deleteRecord,

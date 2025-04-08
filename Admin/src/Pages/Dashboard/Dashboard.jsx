@@ -24,13 +24,13 @@ const Dashboard = () => {
       const productRes = await axios.get('https://api.assortsmachinetools.com/api/product');
       const banner = await axios.get('https://api.assortsmachinetools.com/api/banner');
       const contactEnquiryRes = await axios.get('https://api.assortsmachinetools.com/api/contact');
-      const newlanchdata = await axios.get('https://api.assortsmachinetools.com/api/new-lanch');
+      const newlanchdata = await axios.get('https://api.assortsmachinetools.com/api/get-all-enquiry');
 
       setCategories(categoryRes.data.data.length);
       setSubcategories(subcategoryRes.data.data.length);
       setProducts(productRes.data.data.length);
       setBanner(banner.data.data.length);
-      setNewLanch(newlanchdata.data.length);
+      setNewLanch(newlanchdata.data.data.length);
       setContactEnquiries(contactEnquiryRes.data.data.length);
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
@@ -79,7 +79,7 @@ const Dashboard = () => {
         <div className="dashboard-card">
           <Link to="/all-voucher" className="link-style">
             <FaRocket className="dashboard-icon" />
-            <h3>New Launch</h3>
+            <h3>Enquiry Queries</h3>
             <p>{newLanch}</p>
           </Link>
         </div>

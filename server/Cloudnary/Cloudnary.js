@@ -1,5 +1,5 @@
 const cloudinary = require('cloudinary').v2
-
+const fs = require('fs')
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.API_KEY,
@@ -24,24 +24,34 @@ const uploadImage = async (file, folder) => {
     }
 }
 
-const deleteImage = async (imageUrl) => {
+
+function extractPublicIdFromUrl(url) {
+    if (!url) throw new Error("No URL provided");
+  
+    const parts = url.split("/");
+    const fileNameWithExtension = parts.pop(); // e.g. image-name.jpg
+  
+    if (!fileNameWithExtension.includes(".")) {
+      throw new Error("Invalid Cloudinary URL format");
+    }
+  
+    const fileName = fileNameWithExtension.split(".")[0];
+    const uploadIndex = parts.findIndex(part => part === "upload");
+    const folderPath = parts.slice(uploadIndex + 1).join("/");
+  
+  
+    return folderPath ? `${folderPath}/${fileName}` : fileName;
+  }
+
+ const deleteImage = async (image) => {
     try {
-   
-      const urlParts = imageUrl.split('/');
-      const fileNameWithExtension = urlParts[urlParts.length - 1]; 
-      const folderPath = urlParts.slice(urlParts.indexOf('upload') + 1, urlParts.length - 1).join('/');
-  
-      const fileNameWithoutExtension = fileNameWithExtension.split('.')[0];
-      const publicId = `${folderPath}/${fileNameWithoutExtension}`;
-  
-      // Delete the image from Cloudinary
+     let publicId = await extractPublicIdFromUrl(image)
       const result = await cloudinary.uploader.destroy(publicId);
-      console.log('Deleted:', result);
+      return result;
     } catch (error) {
-      console.error('Error deleting image:', error);
+      throw new Error("Cloudinary deletion failed: " + error.message);
     }
   };
-
 module.exports = {
     uploadImage: uploadImage,
     deleteImage: deleteImage
