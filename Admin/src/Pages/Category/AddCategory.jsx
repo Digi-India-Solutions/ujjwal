@@ -1,66 +1,99 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { addCategory } from '../../Slice/Category/categorySlice';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addCategory } from "../../Slice/Category/categorySlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddCategory = () => {
-    const [data, setData] = useState({ categoryname: "", image: "" });
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { loading } = useSelector((state) => state.category);
-const [active, setActive] = useState(false);
-    const getInputData = (e) => {
-        const { name, value } = e.target;
-        setData({ ...data, [name]: value });
-    };
+  const [data, setData] = useState({ categoryname: "", image: "" });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading } = useSelector((state) => state.category);
+  const [active, setActive] = useState(false);
+  const getInputData = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  };
 
-    const getFileData = (e) => {
-        const { name, files } = e.target;
-        setData({ ...data, [name]: files[0] });
-    };
+  const getFileData = (e) => {
+    const { name, files } = e.target;
+    setData({ ...data, [name]: files[0] });
+  };
 
-    const postData = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("categoryname", data.categoryname);
-        formData.append("image", data.image);
-        formData.append("active", active);
-        dispatch(addCategory(formData))
-            .unwrap()
-            .then(() => {
-                toast.success("Category added successfully");
-                navigate("/all-category");
-            })
-            .catch((error) => {
-                toast.error(`Error: ${error.message}`);
-            });
-    };
+  const postData = (e) => {
+    e.preventDefault();
+    const file = data.image;
 
-    return (
-        <>
-            <ToastContainer />
-            <div className="bread">
-                <div className="head">
-                    <h4>Add Category</h4>
-                </div>
-                <div className="links">
-                    <Link to="/all-category" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
-                </div>
-            </div>
+    if (!file) {
+      toast.error("Please select an image");
+      return;
+    }
 
-            <div className="d-form">
-                <form onSubmit={postData}>
-                    <div className="mb-2">
-                        <label htmlFor="categoryname" className="form-label">Category Name <sup className='text-danger'>*</sup></label>
-                        <input type="text" name="categoryname" id="categoryname" className="form-control" onChange={getInputData} placeholder='Category Name' required/>
-                    </div>
-                    <div className="mb-2">
-                        <label htmlFor="image" className="form-label">Category Image <sup className='text-danger'>*</sup></label>
-                        <input type="file" name="image" id="image" className="form-control" onChange={getFileData} required/>
-                    </div>
-                    <div
+    if (file && file.size > 2 * 1024 * 1024) {
+      // 2MB in bytes
+      toast.error("File size should be less than 2MB");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("categoryname", data.categoryname);
+    formData.append("image", data.image);
+    formData.append("active", active);
+    dispatch(addCategory(formData))
+      .unwrap()
+      .then(() => {
+        toast.success("Category added successfully");
+        navigate("/all-category");
+      })
+      .catch((error) => {
+        toast.error(`Error: ${error.message}`);
+      });
+  };
+
+  return (
+    <>
+      <ToastContainer />
+      <div className="bread">
+        <div className="head">
+          <h4>Add Category</h4>
+        </div>
+        <div className="links">
+          <Link to="/all-category" className="add-new">
+            Back <i className="fa-regular fa-circle-left"></i>
+          </Link>
+        </div>
+      </div>
+
+      <div className="d-form">
+        <form onSubmit={postData}>
+          <div className="mb-2">
+            <label htmlFor="categoryname" className="form-label">
+              Category Name <sup className="text-danger">*</sup>
+            </label>
+            <input
+              type="text"
+              name="categoryname"
+              id="categoryname"
+              className="form-control"
+              onChange={getInputData}
+              placeholder="Category Name"
+              required
+            />
+          </div>
+          <div className="mb-2">
+            <label htmlFor="image" className="form-label">
+              Category Image <sup className="text-danger">*</sup>
+            </label>
+            <input
+              type="file"
+              name="image"
+              id="image"
+              className="form-control"
+              onChange={getFileData}
+              required
+            />
+          </div>
+          <div
             style={{
               marginTop: 20,
               marginBottom: 20,
@@ -82,13 +115,13 @@ const [active, setActive] = useState(false);
             />
             <label htmlFor="active">Active</label>
           </div>
-                    <button type="submit" className="mybtnself" disabled={loading}>
-                        {loading ? 'Loading...' : 'Add Category'}
-                    </button>
-                </form>
-            </div>
-        </>
-    );
+          <button type="submit" className="mybtnself" disabled={loading}>
+            {loading ? "Loading..." : "Add Category"}
+          </button>
+        </form>
+      </div>
+    </>
+  );
 };
 
 export default AddCategory;

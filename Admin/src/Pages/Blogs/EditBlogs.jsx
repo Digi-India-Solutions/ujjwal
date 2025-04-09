@@ -46,6 +46,11 @@ const EditBlogs = () => {
     
     formData.append("content", content);
     if (image) {
+      
+      if (image.size > 2* 1024 * 1024) {
+        toast.error('Image size should be less than 2MB');
+        return;
+      }
       formData.append("image", image);
     }
     

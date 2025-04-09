@@ -14,9 +14,7 @@ const AddProduct = () => {
   const [active, setActive] = useState(false);
   const getApiData = async () => {
     try {
-      let res = await axios.get(
-        "https://api.assortsmachinetools.com/api/category"
-      );
+      let res = await axios.get("https://api.assortsmachinetools.com/api/category");
       setCatedata(res.data.data);
     } catch (error) {
       console.log(error);
@@ -25,9 +23,7 @@ const AddProduct = () => {
 
   const getApiSubData = async (categoryName) => {
     try {
-      let res = await axios.get(
-        "https://api.assortsmachinetools.com/api/subcategory"
-      );
+      let res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
       // Filter subcategories based on selected category
       const filteredSubcategories = res.data.data.filter(
         (item) => item.categoryname === categoryName
@@ -69,6 +65,17 @@ const AddProduct = () => {
   const postData = async (e) => {
     e.preventDefault();
     try {
+      const files = [data.image1, data.image2, data.image3, data.image4];
+
+      const tooLarge = files.some(
+        (file) => file && file.size > 2 * 1024 * 1024
+      );
+      
+      if (tooLarge) {
+        toast.error("File size should be less than 2MB");
+        return; 
+      }
+
       const formData = new FormData();
       formData.append("categoryname", data.categoryname);
       formData.append("subcategoryName", data.subcategoryName);

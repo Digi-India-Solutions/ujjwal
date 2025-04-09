@@ -48,9 +48,16 @@ const EditCategory = () => {
     const postData = async (e) => {
         e.preventDefault();
         const formData = new FormData();
+
         formData.append("categoryname", data.categoryname);
         if (data.image) {
-            formData.append("image", data.image);
+            
+            if (data.image && data.image.size > 2 * 1024 * 1024) {
+                // 2MB in bytes
+                toast.error("File size should be less than 2MB");
+                return;
+              }
+              formData.append("image", data.image);
         }
 formData.append("active", data.active);
         setLoading(true);

@@ -1,6 +1,7 @@
 const blogModel = require('../Model/blogModel.js');
 const fs = require("fs");
 const path = require("path");
+const { uploadImage, deleteImage } = require('../Cloudnary/Cloudnary.js');
 
 // Add a new blog
 const addBlog = async (req, res) => {
@@ -26,8 +27,10 @@ const addBlog = async (req, res) => {
         // Save the image path locally
         const imgPath = req.file.path;
 
+        const url = await uploadImage(imgPath, "blog")
+
         const data = new blogModel({ 
-            image: imgPath, 
+            image: url,
             name, 
             description ,
             content
@@ -90,14 +93,11 @@ const updateBlog = async (req, res) => {
 
             // Save new image path
             const imgPath = req.file.path;
-            blog.image = imgPath;
+            const url = await uploadImage(imgPath, "blog")
+            blog.image = url;
 
             // Delete old image (if it exists)
-            fs.unlink(oldImgPath, (err) => {
-                if (err) {
-                    console.error("Error deleting old image:", err);
-                }
-            });
+          await deleteImage(blog?.image)
         }
 
         // Update other fields
@@ -140,12 +140,13 @@ const deleteBlog = async (req, res) => {
 
         // Delete associated image file if it exists
         if (blog.image) {
-            const imagePath = path.join(__dirname, "..", blog.image);
-            fs.unlink(imagePath, (err) => {
-                if (err) {
-                    console.error("Error deleting image:", err);
-                }
-            });
+            // const imagePath = path.join(__dirname, "..", blog.image);
+            // fs.unlink(imagePath, (err) => {
+            //     if (err) {
+            //         console.error("Error deleting image:", err);
+            //     }
+            // });
+            await deleteImage(blog.image)
         }
 
         // Delete the blog document

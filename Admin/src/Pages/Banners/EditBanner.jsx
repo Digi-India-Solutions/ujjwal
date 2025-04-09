@@ -33,7 +33,10 @@ const EditBanner = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("image", image);
-
+        if(image.size > 2 * 1024 * 1024) {
+            toast.error('File size exceeds 2MB');
+            return;
+        }
         dispatch(updateBanner({ id: _id, formData }))
             .unwrap()
             .then(() => {

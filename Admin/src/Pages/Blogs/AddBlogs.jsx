@@ -26,6 +26,13 @@ const AddBlogs = () => {
       return;
     }
 
+    if(image.size){
+      if (image.size > 2* 1024 * 1024) {
+        toast.error('Image size should be less than 2MB');
+        return;
+      }
+    }
+  
     const formData = new FormData();
     formData.append('name', name);
     formData.append('description', description);

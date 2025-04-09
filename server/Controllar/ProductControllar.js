@@ -13,12 +13,14 @@ const createRecord = async (req, res) => {
       productname,
       active,
     } = req.body;
+
     if (!categoryname || !subcategoryName || !details || !productname) {
       return res.status(403).json({
         success: false,
         mess: "Fill all required fields",
       });
-    } else {
+    } 
+
       const data = new product({
         categoryname,
         subcategoryName,
@@ -33,21 +35,26 @@ const createRecord = async (req, res) => {
           const imagePath = req.files.image1[0].path;
           const url = await uploadImage(imagePath, "product-images");
           data.image1 = url;
+        
         }
         if (req.files.image2) {
           const imagePath = req.files.image2[0].path;
           const url = await uploadImage(imagePath, "product-images");
           data.image2 = url;
+       
         }
         if (req.files.image3) {
           const imagePath = req.files.image3[0].path;
           const url = await uploadImage(imagePath, "product-images");
           data.image3 = url;
+      
+
         }
         if (req.files.image4) {
           const imagePath = req.files.image4[0].path;
           const url = await uploadImage(imagePath, "product-images");
           data.image4 = url;
+        
         }
       }
       if (active) {
@@ -63,7 +70,7 @@ const createRecord = async (req, res) => {
         mess: "New Product created",
         data: data,
       });
-    }
+    
   } catch (error) {
     console.log(error);
     res.status(500).json({

@@ -1,6 +1,7 @@
 const productCategory = require("../Model/CategoryModel");
 const fs = require("fs");
 const path = require("path");
+const { uploadImage, deleteImage } = require("../Cloudnary/Cloudnary");
 
 const createRecord = async (req, res) => {
     try {
@@ -14,7 +15,8 @@ const createRecord = async (req, res) => {
             const data = new productCategory({ categoryname });
             if (req.file) {
                 const localPath =req.file.path;
-                data.image = localPath;
+           const url = await uploadImage(localPath, "category")
+                data.image = url;
             }
             if(active){
                 data.active = active;
@@ -89,14 +91,16 @@ const updateRecord = async (req, res) => {
             if (req.file) {
                 // Delete the old image from local storage
                 if (data.image) {
-                    const oldImagePath = path.join(__dirname, "..", data.image);
-                    if (fs.existsSync(oldImagePath)) {
-                        fs.unlinkSync(oldImagePath);
-                    }
+                    // const oldImagePath = path.join(__dirname, "..", data.image);
+                    // if (fs.existsSync(oldImagePath)) {
+                    //     fs.unlinkSync(oldImagePath);
+                    // }
+                 await deleteImage(data.image);
                 }
                 // Save new image path
                 const localPath = req.file.path
-                data.image = localPath;
+                const url = await uploadImage(localPath, "category");
+                data.image = url;
             }
             await data.save();
             res.status(200).json({
@@ -124,10 +128,11 @@ const deleteRecord = async (req, res) => {
         if (data) {
             // Delete the image from local storage
             if (data.image) {
-                const imagePath = path.join(__dirname, "..", data.image);
-                if (fs.existsSync(imagePath)) {
-                    fs.unlinkSync(imagePath);
-                }
+                // const imagePath = path.join(__dirname, "..", data.image);
+                // if (fs.existsSync(imagePath)) {
+                //     fs.unlinkSync(imagePath);
+                // }
+                await deleteImage(data.image);
             }
             await data.deleteOne();
             res.status(200).json({

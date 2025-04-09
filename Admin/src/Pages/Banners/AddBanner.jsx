@@ -18,6 +18,10 @@ const AddBanner = () => {
 
     const postData = (e) => {
         e.preventDefault();
+        if(image.size > 2048576) {
+            toast.error('File size exceeds 2MB');
+            return;
+        }
         const formData = new FormData();
         formData.append('image', image);
         dispatch(addBanner(formData))

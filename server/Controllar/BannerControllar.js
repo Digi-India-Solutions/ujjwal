@@ -1,6 +1,7 @@
 const banner = require("../Model/BannerModel");
 const fs = require("fs");
 const path = require("path");
+const { uploadImage, deleteImage } = require("../Cloudnary/Cloudnary");
 
 const createBanner = async (req, res) => {
     try {
@@ -13,7 +14,8 @@ const createBanner = async (req, res) => {
         } else {
             // Save the image path locally in the static folder
             const imgPath = req.file.path
-            const data = new banner({ image: imgPath });
+      const url =    await  uploadImage(imgPath, "banner")
+            const data = new banner({ image: url });
             await data.save();
 
             res.status(200).json({
@@ -82,15 +84,17 @@ const deleteBanner = async (req, res) => {
     try {
         const data = await banner.findOne({ _id: req.params._id });
         if (data) {
-            const imgPath = path.join(__dirname, "..", data.image); // Construct the full path of the image
+            // const imgPath = path.join(__dirname, "..", data.image); // Construct the full path of the image
             await data.deleteOne();
 
             // Delete the image file from the static folder
-            fs.unlink(imgPath, (err) => {
-                if (err) {
-                    console.error("Error deleting image:", err);
-                }
-            });
+            // fs.unlink(imgPath, (err) => {
+            //     if (err) {
+            //         console.error("Error deleting image:", err);
+            //     }
+            // });
+
+         await deleteImage(data.image)
 
             res.status(200).json({
                 success: true,
@@ -119,16 +123,18 @@ const updateBanner = async (req, res) => {
                 // Save new image and delete the old one
                 const imgPath = req.file.path
                 const oldImgPath = path.join(__dirname, "..", data.image);
-
-                data.image = imgPath;
+                const url = await uploadImage(imgPath, "banner")
+                data.image = url;
                 await data.save();
 
                 // Delete the old image file
-                fs.unlink(oldImgPath, (err) => {
-                    if (err) {
-                        console.error("Error deleting old image:", err);
-                    }
-                });
+                // fs.unlink(oldImgPath, (err) => {
+                //     if (err) {
+                //         console.error("Error deleting old image:", err);
+                //     }
+                // });
+
+                await deleteImage(data.image)
 
                 res.status(200).json({
                     success: true,

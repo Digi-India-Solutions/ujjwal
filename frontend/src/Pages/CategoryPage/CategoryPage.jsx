@@ -15,7 +15,9 @@ const CategoryPage = () => {
 
   const getApiData = async () => {
     try {
-      let res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
+      let res = await axios.get(
+        "https://api.assortsmachinetools.com/api/subcategory"
+      );
       const newData = res.data.data;
 
       const groupedData = newData.reduce((acc, item) => {
@@ -41,7 +43,9 @@ const CategoryPage = () => {
 
   const getCategorydata = async () => {
     try {
-      let res = await axios.get("https://api.assortsmachinetools.com/api/category");
+      let res = await axios.get(
+        "https://api.assortsmachinetools.com/api/category"
+      );
       setData(res.data.data);
     } catch (error) {
       console.log(error);
@@ -376,7 +380,7 @@ const CategoryPage = () => {
                 {selectedProduct && (
                   <>
                     <img
-                      src={`https://api.assortsmachinetools.com/${selectedProduct.image}`}
+                      src={selectedProduct.image1.includes("cloudinary")? selectedProduct.image1 : `https://api.assortsmachinetools.com/${selectedProduct.image1}`}
                       alt="Product"
                       style={{
                         width: "100%",
@@ -385,12 +389,12 @@ const CategoryPage = () => {
                         borderRadius: "10px",
                       }}
                     />
-                    <Typography
+                    {/* <Typography
                       variant="body1"
                       style={{ marginTop: "10px", textAlign: "center" }}
                     >
                       {selectedProduct.description}
-                    </Typography>
+                    </Typography> */}
                   </>
                 )}
               </div>
