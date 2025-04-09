@@ -199,7 +199,7 @@ const EditProduct = () => {
               onChange={getInputData}
               style={{ width: "16px", height: "16px" }}
             />
-            <label htmlFor="active">Active</label>
+            <label htmlFor="active">New Product Launch</label>
           </div>
                     <button type="submit" className="mybtnself" style={{ marginBottom: 100 }}>{loading ? "Please wait..." : "Update Product"}</button>
                 </form>

@@ -113,7 +113,7 @@ const AddCategory = () => {
               onChange={(e) => setActive(e.target.checked)}
               style={{ width: "16px", height: "16px" }}
             />
-            <label htmlFor="active">Active</label>
+            <label htmlFor="active">New Launch</label>
           </div>
           <button type="submit" className="mybtnself" disabled={loading}>
             {loading ? "Loading..." : "Add Category"}
