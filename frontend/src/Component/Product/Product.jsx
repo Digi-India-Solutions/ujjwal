@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "../../Pages/CategoryPage/categoryPage.css";
 import "../../Component/Product/Product.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Product = () => {
   const [data, setData] = useState([]);
@@ -80,7 +81,8 @@ const Product = () => {
         <Container style={{ marginBottom: "1rem" }}>
           <Slider {...settings}>
             {data.map((item, index) => (
-                <div key={index} className="slick-slide-custom">
+              <div key={index} className="slick-slide-custom">
+                <Link to={`our-category/products/${item._id}`}>
                   <div className="box">
                     <img
                       className="product"
@@ -103,8 +105,9 @@ const Product = () => {
                       {item.categoryname}
                     </Typography>
                   </div>
-                </div>
-              ))}
+                </Link>
+              </div>
+            ))}
           </Slider>
         </Container>
       </div>

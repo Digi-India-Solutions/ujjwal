@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Grid, Modal, Typography } from "@mui/material";
 import "../CategoryPage/categoryPage.css";
-import image1 from "../../images/LatheMachineaccessories/LatheTailstockDieHolder.jpg";
-import image2 from "../../images/MillingMachineTools/Drill Sleeves.jpg";
-import image3 from "../../images/Vice&WorkHolding/Bench Vises.jpg";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const CategoryPage = () => {
   const [data, setData] = useState([]);
@@ -15,10 +13,11 @@ const CategoryPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-
   const getApiData = async () => {
     try {
-      let res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
+      let res = await axios.get(
+        "https://api.assortsmachinetools.com/api/subcategory"
+      );
       const newData = res.data.data;
 
       const groupedData = newData.reduce((acc, item) => {
@@ -29,10 +28,12 @@ const CategoryPage = () => {
         return acc;
       }, {});
 
-      const groupedArray = Object.keys(groupedData).map(key => ({
-        name: key,
-        items: groupedData[key]
-      })).reverse();
+      const groupedArray = Object.keys(groupedData)
+        .map((key) => ({
+          name: key,
+          items: groupedData[key],
+        }))
+        .reverse();
 
       setCategories(groupedArray);
     } catch (error) {
@@ -40,10 +41,11 @@ const CategoryPage = () => {
     }
   };
 
-
   const getCategorydata = async () => {
     try {
-      let res = await axios.get("https://api.assortsmachinetools.com/api/category");
+      let res = await axios.get(
+        "https://api.assortsmachinetools.com/api/category"
+      );
       setData(res.data.data);
     } catch (error) {
       console.log(error);
@@ -55,7 +57,7 @@ const CategoryPage = () => {
     getCategorydata();
   }, []);
 
-  const handleMouseEnter = index => {
+  const handleMouseEnter = (index) => {
     setActiveCategory(index);
   };
 
@@ -72,12 +74,13 @@ const CategoryPage = () => {
     setOpenModal(false);
   };
 
-
-  const [newProduct, setNewProduct] = useState([])
+  const [newProduct, setNewProduct] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const getApiDataNewLanch = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/new-lanch");
+      const res = await axios.get(
+        "https://api.assortsmachinetools.com/api/new-lanch"
+      );
       if (res.status === 200) {
         const data = res.data;
         const filterData = data.filter((x) => x.active === true);
@@ -88,12 +91,9 @@ const CategoryPage = () => {
     }
   };
 
-
   useEffect(() => {
-    getApiDataNewLanch()
-  }, [newProduct.length])
-
-
+    getApiDataNewLanch();
+  }, [newProduct.length]);
 
   // Handle next and previous buttons
   const handleNext = () => {
@@ -108,23 +108,49 @@ const CategoryPage = () => {
     }
   };
 
-  // Slice products to show only 2 at a time
   const displayedProducts = newProduct.slice(currentIndex, currentIndex + 2);
 
-  // const newProduct = [
-  //   {
-  //     image: image1,
-  //     description: "Ultra Precision Working Block Pairs",
-  //   },
-  //   {
-  //     image: image2,
-  //     description: "Ultra Precision Working Block Pairs",
-  //   },
-  //   {
-  //     image: image3,
-  //     description: "Ultra Precision Working Block Pairs",
-  //   },
-  // ];
+  // ====== Enquiry form Modal =======
+
+  const [openEnquiryModal, setOpenEnquiryModal] = useState(false);
+  const [enquiryForm, setEnquiryForm] = useState({
+    productName: "",
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const getInputData = (e) => {
+    const { name, value } = e.target;
+    setEnquiryForm({ ...enquiryForm, [name]: value });
+  };
+
+  const handleEnquirySubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let res = await axios.post(
+        "https://api.assortsmachinetools.com/api/create-enquiry",
+        enquiryForm
+      );
+      if (res.status === 200) {
+        toast.success("Enquiry sent successfully");
+        enquiryForm.reset();
+        setOpenEnquiryModal(false);
+        setEnquiryForm({
+          productName: "",
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+      } else {
+        toast.error("Failed to send enquiry");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Container maxWidth="xl">
@@ -182,7 +208,10 @@ const CategoryPage = () => {
                       <article className="card">
                         <Link to={`/our-category/products/${item._id}`}>
                           <div className="card__img">
-                            <img src={`https://api.assortsmachinetools.com/${item.image}`} alt={item.categoryname} />
+                            <img
+                              src={`https://api.assortsmachinetools.com/${item.image}`}
+                              alt={item.categoryname}
+                            />
                           </div>
                           <div className="card__name">
                             <p style={{ margin: "0" }}>
@@ -215,7 +244,6 @@ const CategoryPage = () => {
           </div>
         </Grid>
 
-
         {/* New Product Launch Section */}
         <Grid item md={2} xs={12} p={0}>
           <div className="newLaunch">
@@ -233,10 +261,19 @@ const CategoryPage = () => {
             {newProduct && newProduct.length > 0 ? (
               <div>
                 {displayedProducts?.map((product, index) => (
-                  <div key={index} className="productCard" style={{padding: "10px" }}>
+                  <div
+                    key={index}
+                    className="productCard"
+                    style={{ padding: "10px" }}
+                  >
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <img
-                        style={{ borderRadius: "10px", cursor: "pointer" , height: "120px" , width: "100%" }}
+                        style={{
+                          borderRadius: "10px",
+                          cursor: "pointer",
+                          height: "120px",
+                          width: "100%",
+                        }}
                         src={`https://api.assortsmachinetools.com/${product.image}`}
                         alt="New Launch Product"
                         onClick={() => handleOpenModal(product)}
@@ -246,18 +283,36 @@ const CategoryPage = () => {
                       {product.productName}
                     </p>
                     <div className="launch-buttons">
-                      <button className="viewButton" onClick={() => handleOpenModal(product)}>
+                      <button
+                        className="viewButton"
+                        onClick={() => handleOpenModal(product)}
+                      >
                         View
                       </button>
-                      <Link to="/contact">
-                        <button className="viewButton">Enquiry Now</button>
-                      </Link>
+                      <button
+                        className="viewButton"
+                        onClick={() => {
+                          setOpenEnquiryModal(true);
+                          setEnquiryForm((prev) => ({
+                            ...prev,
+                            productName: product.productName, // auto-fill
+                          }));
+                        }}
+                      >
+                        Enquiry Now
+                      </button>{" "}
                     </div>
                   </div>
                 ))}
 
                 {/* Navigation Buttons */}
-                <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "10px",
+                  }}
+                >
                   <button
                     onClick={handlePrev}
                     disabled={currentIndex === 0}
@@ -280,7 +335,10 @@ const CategoryPage = () => {
                       color: "White",
                       padding: "8px 16px",
                       borderRadius: "5px",
-                      cursor: currentIndex + 2 >= newProduct.length ? "not-allowed" : "pointer",
+                      cursor:
+                        currentIndex + 2 >= newProduct.length
+                          ? "not-allowed"
+                          : "pointer",
                     }}
                   >
                     Next
@@ -288,7 +346,9 @@ const CategoryPage = () => {
                 </div>
               </div>
             ) : (
-              <p style={{ textAlign: "center", margin: "20px" }}>No Products Available</p>
+              <p style={{ textAlign: "center", margin: "20px" }}>
+                No Products Available
+              </p>
             )}
 
             {/* Modal Component */}
@@ -305,11 +365,12 @@ const CategoryPage = () => {
                   left: "50%",
                   transform: "translate(-50%, -50%)",
                   backgroundColor: "white",
-                  boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
                   borderRadius: "10px",
                   padding: "20px",
-                  maxWidth: "80%",
-                  maxHeight: "80%",
+                  maxWidth: "80vw", // increased from 100% to 90vw for better size
+                  maxHeight: "80vh",
+                  width: "700px", // you can adjust this value
                   overflow: "auto",
                 }}
               >
@@ -318,18 +379,173 @@ const CategoryPage = () => {
                     <img
                       src={`https://api.assortsmachinetools.com/${selectedProduct.image}`}
                       alt="Product"
-                      style={{ width: "100%", borderRadius: "10px" }}
+                      style={{
+                        width: "100%",
+                        maxHeight: "60vh",
+                        objectFit: "contain",
+                        borderRadius: "10px",
+                      }}
                     />
-                    <Typography variant="body1" style={{ marginTop: "10px", textAlign: "center" }}>
+                    <Typography
+                      variant="body1"
+                      style={{ marginTop: "10px", textAlign: "center" }}
+                    >
                       {selectedProduct.description}
                     </Typography>
                   </>
                 )}
               </div>
             </Modal>
+
+            {/* ==== Enquiry Form Modal ======= */}
+
+            <Modal
+              open={openEnquiryModal}
+              onClose={() => setOpenEnquiryModal(false)}
+              aria-labelledby="enquiry-modal-title"
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  backgroundColor: "white",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+                  borderRadius: "10px",
+                  padding: "30px",
+                  borderTop: "5px solid rgb(24, 29, 69)",
+                  borderBottom: "5px solid rgb(24, 29, 69)",
+                  width: "100%",
+                  maxWidth: "500px",
+                }}
+              >
+                <Typography variant="h5" gutterBottom align="center">
+                  Enquiry Form
+                </Typography>
+
+                <form onSubmit={handleEnquirySubmit}>
+                  <div style={{ marginBottom: "15px" }}>
+                    <label>Product Name</label>
+                    <input
+                      type="text"
+                      name="productName"
+                      value={enquiryForm.productName}
+                      disabled
+                      style={{
+                        width: "100%",
+                        padding: "8px",
+                        borderRadius: "5px",
+                        fontWeight: "bold",
+                        color: "black",
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ marginBottom: "15px" }}>
+                    <label>Your Name</label>
+                    <input
+                      type="text"
+                      required
+                      name="name"
+                      value={enquiryForm.name}
+                      onChange={(e) =>
+                        setEnquiryForm({ ...enquiryForm, name: e.target.value })
+                      }
+                      style={{
+                        width: "100%",
+                        padding: "8px",
+                        borderRadius: "5px",
+                        color: "black",
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ marginBottom: "15px" }}>
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      required
+                      name="email"
+                      value={enquiryForm.email}
+                      onChange={(e) =>
+                        setEnquiryForm({
+                          ...enquiryForm,
+                          email: e.target.value,
+                        })
+                      }
+                      style={{
+                        width: "100%",
+                        padding: "8px",
+                        borderRadius: "5px",
+                        color: "black",
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ marginBottom: "15px" }}>
+                    <label>Phone</label>
+                    <input
+                      type="tel"
+                      required
+                      name="phone"
+                      value={enquiryForm.phone}
+                      onChange={(e) =>
+                        setEnquiryForm({
+                          ...enquiryForm,
+                          phone: e.target.value,
+                        })
+                      }
+                      style={{
+                        width: "100%",
+                        padding: "8px",
+                        borderRadius: "5px",
+                        color: "black",
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ marginBottom: "15px" }}>
+                    <label>Message</label>
+                    <textarea
+                      rows="3"
+                      name="message"
+                      value={enquiryForm.message}
+                      onChange={(e) =>
+                        setEnquiryForm({
+                          ...enquiryForm,
+                          message: e.target.value,
+                        })
+                      }
+                      style={{
+                        width: "100%",
+                        padding: "8px",
+                        borderRadius: "5px",
+                        color: "black",
+                      }}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    style={{
+                      width: "100%",
+                      padding: "15px",
+                      backgroundColor: "rgb(24, 29, 69)",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "5px",
+                      cursor: "pointer",
+                    }}
+                    onClick={getInputData}
+                  >
+                    Send Enquiry
+                  </button>
+                </form>
+              </div>
+            </Modal>
           </div>
         </Grid>
-
       </Grid>
     </Container>
   );

@@ -104,7 +104,9 @@ const Contact = () => {
                         <Grid item xs={12} md={6}>
                           <label htmlFor="">Enter Your Name</label>
                           <TextField
+                          type="text"
                             id="outlined-basic"
+                            required
                             variant="outlined"
                             fullWidth name="name" onChange={getInputData} value={data.name}
                             sx={{
@@ -119,7 +121,9 @@ const Contact = () => {
                         <Grid item xs={12} md={6}>
                           <label htmlFor="">Company Name</label>
                           <TextField
+                          type="text"
                             id="outlined-basic"
+                            required
                             variant="outlined"
                             fullWidth name="companyname" onChange={getInputData} value={data.companyname}
                             sx={{
@@ -134,8 +138,10 @@ const Contact = () => {
                         <Grid item xs={12} md={6}>
                           <label htmlFor="">Email ID</label>
                           <TextField
+                          type="email"
                             id="outlined-basic"
                             variant="outlined"
+                            required
                             fullWidth name="email" onChange={getInputData} value={data.email}
                             sx={{
                               height: "40px",
@@ -149,8 +155,10 @@ const Contact = () => {
                         <Grid item xs={12} md={6}>
                           <label htmlFor="">Phone Number</label>
                           <TextField
+                            type="tel"
                             id="outlined-basic"
                             variant="outlined"
+                            required
                             fullWidth name="phone" onChange={getInputData} value={data.phone}
                             sx={{
                               height: "40px",
@@ -164,7 +172,9 @@ const Contact = () => {
                         <Grid item xs={12}>
                           <label htmlFor="">Address</label>
                           <TextField
+                          type="text"
                             fullWidth
+                            required
                             id="outlined-basic"
                             variant="outlined" name="address" onChange={getInputData} value={data.address}
                             sx={{
@@ -180,7 +190,9 @@ const Contact = () => {
                           <label htmlFor="">Your Message</label>
                           <TextField
                             fullWidth
+                            type="text"
                             id="outlined-basic"
+                            required
                             variant="outlined"
                             multiline name="message" onChange={getInputData} value={data.message}
                             rows={4}

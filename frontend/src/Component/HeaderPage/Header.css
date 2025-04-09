@@ -42,11 +42,12 @@ header {
   opacity: 1;
   display: none;
   top: 125%;
-  left: -260%;
+  left: -300%;
   background-color: #1d2c59;
   padding: 1rem;
   min-width: 700px;
-  height: 200px;
+  height: 320px;
+  border-radius: 1rem;
   overflow-y: auto;
 }
 
@@ -57,7 +58,7 @@ header {
 .dropdown_inner_content {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
+  gap: 10px;
 }
 
 .dropdownWidth {
@@ -67,24 +68,26 @@ header {
 }
 .dropdown-toggle {
   display: flex;
-    height: 50px;
-    align-items: unset;
+  height: 50px;
+  align-items: unset;
   color: white;
 }
 .dropdownheading {
-  font-size: 12px !important;
+  font-size: 14px !important;
   font-weight: 700 !important;
   margin-bottom: 0.5rem !important;
   color: #12488d !important;
 }
 
 .headingContent {
-  font-size: 10px;
+  font-size: 12px;
   color: #333;
   text-decoration: none;
   display: flex;
+  align-items: center;
+  gap: 3px;
 }
-.search-results{
+.search-results {
   z-index: 1;
   background-color: white;
   padding: 1rem;
@@ -92,12 +95,12 @@ header {
   margin-top: 0.2rem;
   width: 100%;
 }
-.search-results ul{
+.search-results ul {
   padding-left: 0rem;
   list-style: none;
   margin: 0;
 }
-.search-results ul li{
+.search-results ul li {
   border-bottom: 1px solid #12488d;
   font-size: 0.9rem;
   cursor: pointer;
@@ -201,15 +204,14 @@ p {
   cursor: pointer;
 }
 .tgm {
-  background-color: #0088CC;
+  background-color: #0088cc;
   color: white; /* Ensures the icon is visible */
   padding: 5px; /* Adjust spacing inside */
   border-radius: 50%; /* Makes it circular */
   cursor: pointer;
-
 }
 .twitr {
-  background-color: #1DA1F2;
+  background-color: #1da1f2;
   color: white; /* Ensures the icon is visible */
   padding: 5px;
   cursor: pointer;
@@ -222,7 +224,7 @@ p {
   padding: 2px;
   cursor: pointer;
 }
-.for-laptop{
+.for-laptop {
   max-width: 90%;
   margin: auto;
 }
