@@ -12,9 +12,8 @@ const Product = () => {
   const getCategoryData = async () => {
     try {
       const res = await axios.get(
-        "https://api.assortsmachinetools.com/api/category"
+        "https://api.assortsmachinetools.com/api/new-lauch-category"
       );
-      console.log(res);
       setData(res.data.data);
     } catch (error) {
       console.error(error);

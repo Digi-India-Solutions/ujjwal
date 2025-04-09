@@ -94,7 +94,7 @@ const AllProductPage = () => {
                     <article className="card">
                       <Link to={`/our-category/category/product-name/${item._id}`}>
                         <div className="card__img">
-                          <img src={`https://api.assortsmachinetools.com/${item.image1}`} alt={item.name} />
+                          <img src={item.image1.includes("cloudinary") ? item.image1 : `https://api.assortsmachinetools.com/${item.image1}`} alt={item.name} />
                         </div>
                         <div className="card__name">
                         <p style={{ margin: "0" }}>

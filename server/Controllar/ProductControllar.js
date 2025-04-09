@@ -27,6 +27,7 @@ const createRecord = async (req, res) => {
         tableData,
       });
 
+ 
       if (req.files) {
         if (req.files.image1) {
           const imagePath = req.files.image1[0].path;
@@ -51,9 +52,12 @@ const createRecord = async (req, res) => {
       }
       if (active) {
         data.active = active;
+      }else{
+        data.active = false;
       }
 
       await data.save();
+  
       res.status(200).json({
         success: true,
         mess: "New Product created",

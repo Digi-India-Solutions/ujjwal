@@ -82,13 +82,13 @@ const ProductDetailPage = () => {
                 sx={{ padding: { xs: "1rem", md: "2rem", sm: "1rem" } }}
                 style={{ border: "1px solid lightgray" }}
               >
-                <img src={`https://api.assortsmachinetools.com/${selectedImage}`} width={"100%"} alt={data.categoryname} />
+                <img src={selectedImage.includes("cloudinary") ? selectedImage : `https://api.assortsmachinetools.com/${selectedImage}`} width={"100%"} alt={data.categoryname} />
               </Typography>
               <Grid container spacing={2} mt={2}>
                 {images.map((image, index) => (
                   <Grid item xs={3} key={index}>
                     <img
-                      src={`https://api.assortsmachinetools.com/${image}`}
+                      src={image.includes("cloudinary") ? image : `https://api.assortsmachinetools.com/${image}`}
                       width={"100%"}
                       alt={`Thumbnail ${index + 1}`}
                       style={{ cursor: "pointer", border: selectedImage === image ? "2px solid blue" : "none" }}

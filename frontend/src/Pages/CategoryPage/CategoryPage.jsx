@@ -15,9 +15,7 @@ const CategoryPage = () => {
 
   const getApiData = async () => {
     try {
-      let res = await axios.get(
-        "https://api.assortsmachinetools.com/api/subcategory"
-      );
+      let res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
       const newData = res.data.data;
 
       const groupedData = newData.reduce((acc, item) => {
@@ -43,9 +41,7 @@ const CategoryPage = () => {
 
   const getCategorydata = async () => {
     try {
-      let res = await axios.get(
-        "https://api.assortsmachinetools.com/api/category"
-      );
+      let res = await axios.get("https://api.assortsmachinetools.com/api/category");
       setData(res.data.data);
     } catch (error) {
       console.log(error);
@@ -79,10 +75,10 @@ const CategoryPage = () => {
   const getApiDataNewLanch = async () => {
     try {
       const res = await axios.get(
-        "https://api.assortsmachinetools.com/api/new-lanch"
+        "https://api.assortsmachinetools.com/api/new-lanch-product"
       );
       if (res.status === 200) {
-        const data = res.data;
+        const data = res.data.data;
         const filterData = data.filter((x) => x.active === true);
         setNewProduct(filterData.length > 0 ? filterData : []); // Set as an array, even if empty
       }
@@ -135,14 +131,13 @@ const CategoryPage = () => {
       );
       if (res.status === 200) {
         toast.success("Enquiry sent successfully");
-        enquiryForm.reset();
         setOpenEnquiryModal(false);
         setEnquiryForm({
-          productName: "",
-          name: "",
-          email: "",
-          phone: "",
-          message: "",
+          productName: " ",
+          name: " ",
+          email: " ",
+          phone: " ",
+          message: " ",
         });
       } else {
         toast.error("Failed to send enquiry");
@@ -274,13 +269,17 @@ const CategoryPage = () => {
                           height: "120px",
                           width: "100%",
                         }}
-                        src={`https://api.assortsmachinetools.com/${product.image}`}
+                        src={
+                          product.image1.includes("cloudinary")
+                            ? product.image1
+                            : `https://api.assortsmachinetools.com/${product.image1}`
+                        }
                         alt="New Launch Product"
                         onClick={() => handleOpenModal(product)}
                       />
                     </div>
                     <p style={{ textAlign: "center", margin: "10px 0" }}>
-                      {product.productName}
+                      {product.productname.slice(0, 15)}...
                     </p>
                     <div className="launch-buttons">
                       <button
@@ -295,7 +294,7 @@ const CategoryPage = () => {
                           setOpenEnquiryModal(true);
                           setEnquiryForm((prev) => ({
                             ...prev,
-                            productName: product.productName, // auto-fill
+                            productName: product.productname, // auto-fill
                           }));
                         }}
                       >
