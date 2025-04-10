@@ -63,7 +63,7 @@ const BlogDetails = () => {
       </Typography>
 
       <div className="blog-image-container">
-        <img src={`https://api.assortsmachinetools.com/${blogPost.image}`} alt={blogPost.title} className="blog-image" />
+        <img src={blogPost.image.includes("cloudinary") ? blogPost.image : `https://api.assortsmachinetools.com/${blogPost.image}`} alt={blogPost.title} className="blog-image" />
       </div>
 
       <Typography variant="body1" className="blog-content" dangerouslySetInnerHTML={{ __html: blogPost.content }}>

@@ -208,7 +208,7 @@ const CategoryPage = () => {
                         <Link to={`/our-category/products/${item._id}`}>
                           <div className="card__img">
                             <img
-                              src={`https://api.assortsmachinetools.com/${item.image}`}
+                              src={item.image.includes("cloudinary") ? item.image : `https://api.assortsmachinetools.com/${item.image}`}
                               alt={item.categoryname}
                             />
                           </div>

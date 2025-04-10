@@ -47,8 +47,8 @@ const createRecord = async (req, res) => {
           const imagePath = req.files.image3[0].path;
           const url = await uploadImage(imagePath, "product-images");
           data.image3 = url;
-      
 
+          
         }
         if (req.files.image4) {
           const imagePath = req.files.image4[0].path;

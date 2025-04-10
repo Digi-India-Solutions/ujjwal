@@ -43,7 +43,7 @@ const Blog = () => {
         {blogs.map((blog) => (
           <Grid item xs={12} sm={6} md={4} key={blog._id}>
             <Card className="blog-card">
-              <CardMedia component="img" height="200" image={`https://api.assortsmachinetools.com/${blog.image}`} alt={blog.name} />
+              <CardMedia component="img" height="200" image={blog.image.includes("cloudinary") ? blog.image : `https://api.assortsmachinetools.com/${blog.image}`} alt={blog.name} />
               <CardContent>
                 <Typography variant="h6">{blog.name}</Typography>
                 <Typography variant="body2" color="textSecondary" dangerouslySetInnerHTML={{ __html: blog.description }}></Typography>

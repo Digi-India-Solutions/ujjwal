@@ -87,7 +87,7 @@ const Product = () => {
                       className="product"
                       width="100%"
                       style={{ height: "200px" }}
-                      src={`https://api.assortsmachinetools.com/${item.image}`}
+                      src={item.image.includes("cloudinary") ? item.image : `https://api.assortsmachinetools.com/${item.image}`}
                       alt={item.categoryname}
                     />
                     <Typography

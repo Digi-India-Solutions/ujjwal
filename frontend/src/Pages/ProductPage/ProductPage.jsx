@@ -36,7 +36,7 @@ function ProductPage() {
       <Slider style={{ width: "100%", overflow: "hidden" }} {...settingsCarousel}>
         {data.map((banner, index) => (
           <div key={index}>
-            <img width={"100%"} src={`https://api.assortsmachinetools.com/${banner.image}`} alt={`banner-${index}`} />
+            <img width={"100%"} src={banner.image.includes("cloudinary") ? banner.image : `https://api.assortsmachinetools.com/${banner.image}`} alt={`banner-${index}`} />
           </div>
         ))}
       </Slider>
