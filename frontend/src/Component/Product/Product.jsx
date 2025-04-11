@@ -81,7 +81,7 @@ const Product = () => {
           <Slider {...settings}>
             {data.map((item, index) => (
               <div key={index} className="slick-slide-custom">
-                <Link to={`our-category/products/${item._id}`}>
+                <Link to={`/our-category/products/${item._id}`}>
                   <div className="box">
                     <img
                       className="product"
