@@ -13,10 +13,22 @@ const ProductDetailPage = () => {
   const [selectedImage, setSelectedImage] = useState('');
   const navigate = useNavigate(); // Using useNavigate for redirection
 
+  const addToCart = (product) => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+    const exists = cart.find((item) => item._id === product._id);
+    if (!exists) {
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  };
+  
   const getAllProductData = async () => {
     try {
       let res = await axios.get(`https://api.assortsmachinetools.com/api/product/${_id}`);
       setData(res.data.data);
+      console.log("res", res.data.data);
+      
       setSelectedImage(res.data.data.image2);
     } catch (error) {
       setError(error);
@@ -44,6 +56,7 @@ const ProductDetailPage = () => {
   }
 
   const handleAddToCart = () => {
+    addToCart(data)
     navigate("/addtocart"); // Use navigate instead of useHistory
   };
 
