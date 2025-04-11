@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box, Typography, Button, Grid, Dialog, DialogTitle, DialogContent, DialogActions,
   TextField, RadioGroup, FormControlLabel, Radio, FormLabel, Divider, IconButton, Paper
@@ -7,43 +7,21 @@ import SendIcon from '@mui/icons-material/Send';
 // import AddIcon from '@mui/icons-material/Add';
 // import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 
 
 const CartPageWithEnquiryModal = () => {
   const [open, setOpen] = useState(false);
 
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: 'Bookshelf',
-      price: 119.99,
-      quantity: 2,
-      color: 'White',
-      image: 'https://i.imgur.com/ZL0vFZz.png',
-    },
-    {
-      id: 2,
-      name: 'Round Table',
-      price: 24.99,
-      quantity: 1,
-      color: 'White',
-      image: 'https://i.imgur.com/Bj7xTkE.png',
-    }
-  ]);
-
-  const handleQuantityChange = (id, delta) => {
-    setCartItems(prev =>
-      prev.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
-    );
-  };
+  const [cartItems, setCartItems] = useState([]);
 
   const handleDeleteItem = (id) => {
-    setCartItems(prev => prev.filter(item => item.id !== id));
+    const cart= JSON.parse(localStorage.getItem('cart')) || [];
+    const updatedCart = cart.filter(item => item._id !== id);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    setCartItems(updatedCart);
   };
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -58,6 +36,7 @@ const CartPageWithEnquiryModal = () => {
     email: '',
     message: '',
     status: 'Manufacturer',
+    cart: []
   });
 
   const handleFormChange = (e) => {
@@ -65,11 +44,50 @@ const CartPageWithEnquiryModal = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    console.log('Form Data:', formData);
-    console.log('Cart Data:', cartItems);
-    setOpen(false);
+  const handleSubmit = async() => {
+    try {
+   
+      if (!formData.name || !formData.designation || !formData.company || !formData.phone || !formData.email || !formData.message || !formData.status) {
+        toast.error("Please fill in all required fields.");
+        return;
+      }
+      formData.cart = cartItems;
+    const response=  await axios.post('https://api.assortsmachinetools.com/api/create-cart-enquiry', formData);
+      if(response.status===201){
+        toast.success("Enquiry sent successfully!");
+        setFormData({
+          name: '',
+          designation: '',
+          company: '',
+          phone: '',
+          email: '',
+          message: '',
+          status: 'Manufacturer',
+          cart: []
+        });
+        localStorage.removeItem('cart');
+        setCartItems([]);
+      }
+      setOpen(false);
+    } catch (error) {
+      setOpen(false);
+      console.log("feature error", error);
+      toast.error("An error occurred while sending your enquiry.");
+    }
   };
+
+  const handleCartEnquiry = () => {
+    if (cartItems.length === 0) {
+      toast.error("Your cart is empty. Please add items to your cart before sending an enquiry.");
+      return;
+    }
+    setOpen(true);
+  };
+  useEffect(()=>{
+    const storedCartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    setCartItems(storedCartItems);
+  },[])
+
 
   return (
     <Box p={3} maxWidth="md" mx="auto">
@@ -85,7 +103,7 @@ const CartPageWithEnquiryModal = () => {
       ) : (
         cartItems.map((item) => (
           <Paper
-            key={item.id}
+            key={item._id}
             sx={{
               p: 2,
               mb: 2,
@@ -98,9 +116,9 @@ const CartPageWithEnquiryModal = () => {
               backgroundColor: '#fafafa'
             }}
           >
-            <img src={item.image} alt={item.name} width={90} height={90} style={{ borderRadius: 8 }} />
+            <img src={item.image1.includes('cloudinary') ? item.image1 : `https://api.assortsmachinetools.com/${item.image1}`} alt={item.product} width={90} height={90} style={{ borderRadius: 8 }} />
             <Box flex={1}>
-              <Typography fontWeight="bold" fontSize="1.1rem">{item.name}</Typography>
+              <Typography fontWeight="bold" fontSize="1.1rem">{item.productname}</Typography>
               {/* <Typography variant="body2" color="text.secondary">
                 Color: {item.color}
               </Typography> */}
@@ -117,7 +135,7 @@ const CartPageWithEnquiryModal = () => {
             {/* <Typography fontWeight="bold" mr={2}>
               ${(item.price * item.quantity).toFixed(2)}
             </Typography> */}
-            <IconButton color="error" onClick={() => handleDeleteItem(item.id)}>
+            <IconButton color="error" onClick={() => handleDeleteItem(item._id)}>
               <DeleteIcon />
             </IconButton>
           </Paper>
@@ -133,7 +151,7 @@ const CartPageWithEnquiryModal = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => setOpen(true)}
+          onClick={handleCartEnquiry}
           size="large"
           sx={{ borderRadius: 10, px: 5, py: 1.5 }}
         >
@@ -146,35 +164,86 @@ const CartPageWithEnquiryModal = () => {
       <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
         <DialogTitle fontWeight="bold" textAlign="center">📝 Enquiry Information</DialogTitle>
         <DialogContent dividers>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Name" name="name" value={formData.name} onChange={handleFormChange} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Designation/Title" name="designation" value={formData.designation} onChange={handleFormChange} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Company Name" name="company" value={formData.company} onChange={handleFormChange} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Phone" name="phone" value={formData.phone} onChange={handleFormChange} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField fullWidth label="Email" name="email" value={formData.email} onChange={handleFormChange} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField fullWidth multiline rows={3} label="Message" name="message" value={formData.message} onChange={handleFormChange} />
-            </Grid>
-            <Grid item xs={12}>
-              <FormLabel component="legend">Status</FormLabel>
-              <RadioGroup row name="status" value={formData.status} onChange={handleFormChange}>
-                {['Manufacturer', 'Importer/Distributor Company', 'Dealer', 'End-User', 'Other'].map((status) => (
-                  <FormControlLabel key={status} value={status} control={<Radio />} label={status} />
-                ))}
-              </RadioGroup>
-            </Grid>
-          </Grid>
-        </DialogContent>
+  <Grid container spacing={2}>
+    <Grid item xs={12} sm={6}>
+      <TextField
+        fullWidth
+        required
+        label="Name"
+        name="name"
+        value={formData.name}
+        onChange={handleFormChange}
+      />
+    </Grid>
+    <Grid item xs={12} sm={6}>
+      <TextField
+        fullWidth
+        required
+        label="Designation/Title"
+        name="designation"
+        value={formData.designation}
+        onChange={handleFormChange}
+      />
+    </Grid>
+    <Grid item xs={12} sm={6}>
+      <TextField
+        fullWidth
+        required
+        label="Company Name"
+        name="company"
+        value={formData.company}
+        onChange={handleFormChange}
+      />
+    </Grid>
+    <Grid item xs={12} sm={6}>
+      <TextField
+        fullWidth
+        required
+        label="Phone"
+        name="phone"
+        value={formData.phone}
+        onChange={handleFormChange}
+      />
+    </Grid>
+    <Grid item xs={12}>
+      <TextField
+        fullWidth
+        required
+        label="Email"
+        name="email"
+        type="email"
+        value={formData.email}
+        onChange={handleFormChange}
+      />
+    </Grid>
+    <Grid item xs={12}>
+      <TextField
+        fullWidth
+        required
+        multiline
+        rows={3}
+        label="Message"
+        name="message"
+        value={formData.message}
+        onChange={handleFormChange}
+      />
+    </Grid>
+    <Grid item xs={12}>
+      <FormLabel component="legend" required>Status</FormLabel>
+      <RadioGroup
+        row
+        name="status"
+        value={formData.status}
+        onChange={handleFormChange}
+      >
+        {['Manufacturer', 'Importer/Distributor Company', 'Dealer', 'End-User', 'Other'].map((status) => (
+          <FormControlLabel key={status} value={status} control={<Radio required />} label={status} />
+        ))}
+      </RadioGroup>
+    </Grid>
+  </Grid>
+</DialogContent>
+
         <DialogActions sx={{ justifyContent: 'center', pb: 2 }}>
         
 <Button
