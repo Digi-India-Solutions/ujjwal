@@ -27,7 +27,7 @@ const App = () => {
       <Route path='/' element={<Home />} />
       <Route path='/contact' element={<Contact />} />
       <Route path='/our-category' element={<CategoryPage />} />
-      <Route path='/our-category/:_id' element={<SearchByCategory />} />
+      <Route path='/our-category/:categoryName' element={<SearchByCategory />} />
       <Route path='/our-category/products/:_id' element={<AllProductPage />} />
       <Route path='/our-category/category/product-name/:_id' element={<ProductDetailPage />} />
       <Route path='/about' element={<AboutPage />} />

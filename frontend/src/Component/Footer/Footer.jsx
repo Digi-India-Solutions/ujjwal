@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Footer/Footer.css";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
@@ -11,7 +11,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 const Footer = () => {
   const [categories, setCategories] = useState([]);
-
+const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchCategories = async () => {
@@ -79,7 +79,7 @@ const Footer = () => {
             {/* Category Section */}
             <Grid item xs={12} sm={6} md={4} lg={3}>
               <div className="tt-mobile-collapse">
-                <Typography variant="h6" className="tt-collapse-title">Categories</Typography>
+                <Typography variant="h6" className="tt-collapse-title" >Categories</Typography>
                 <div className="tt-collapse-content">
                   {categories.slice(0, 5).map((category) => (
                     <div key={category.name} className="footer-category">
