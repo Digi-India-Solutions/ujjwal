@@ -15,7 +15,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import SearchByCategory from './Pages/AllCategory/SearchByCategory';
 import Blog from './Pages/BlogPage/Blog';
 import BlogDetails from './Pages/BlogDetail/BlogDetails';
-
+import AddToCart from './Pages/AddToCart/AddToCart'
 
 const App = () => {
   return (
@@ -31,6 +31,7 @@ const App = () => {
       <Route path='/our-category/products/:_id' element={<AllProductPage />} />
       <Route path='/our-category/category/product-name/:_id' element={<ProductDetailPage />} />
       <Route path='/about' element={<AboutPage />} />
+      <Route path='/addtocart' element={<AddToCart/>} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/:id" element={<BlogDetails />} />
     </Routes>
