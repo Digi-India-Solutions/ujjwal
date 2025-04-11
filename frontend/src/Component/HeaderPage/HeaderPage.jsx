@@ -16,6 +16,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import experience from "../../images/experience.png";
 import TelegramIcon from '@mui/icons-material/Telegram';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import axios from "axios";
 
 const HeaderPage = () => {
@@ -261,53 +262,90 @@ const HeaderPage = () => {
               </div>
             </Grid>
             <Grid
-              item
-              xs={4}
-              md={4}
-              style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
-            >
-              <div className="search-container" style={{ position: "relative" }}>
-                <div className="search-bar" style={{ position: "relative" }}>
-                  <SearchIcon
-                    style={{
-                      position: "absolute",
-                      left: "1rem",
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      color: "#1d2c59",
-                    }}
-                  />
-                  <input
-                    className="search-input"
-                    type="text"
-                    placeholder="Search"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    onKeyDown={handleSearch}
-                    style={{ paddingLeft: "3rem", backgroundColor: "#fff", borderRadius: "5px", border: "1px solid #ccc" }}
-                  />
-                </div>
-                {query && filteredResults.length > 0 && (
-                  <div className="search-results">
-                    <ul>
-                      {filteredResults.map((result, index) => (
-                        <li key={index} onClick={() => handleNavigation(result)}>
-                          {result.name}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-              <img
-                style={{ position: "relative" }}
-                width={"20%"}
-                src={experience}
-                alt="experience"
-              />
+  item
+  xs={12}
+  md={4}
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "1rem",
+  }}
+>
+  {/* 🔍 Search Bar */}
+  <div className="search-container" style={{ position: "relative", flex: 1 }}>
+    <div className="search-bar" style={{ position: "relative" }}>
+      <SearchIcon
+        style={{
+          position: "absolute",
+          left: "1rem",
+          top: "50%",
+          transform: "translateY(-50%)",
+          color: "#1d2c59",
+        }}
+      />
+      <input
+        className="search-input"
+        type="text"
+        placeholder="Search"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleSearch}
+        style={{
+          paddingLeft: "3rem",
+          backgroundColor: "#fff",
+          borderRadius: "5px",
+          border: "1px solid #ccc",
+          width: "100%",
+        }}
+      />
+    </div>
 
-            </Grid>
-          </Grid>
+    {/* 🔍 Search Results */}
+    {query && filteredResults.length > 0 && (
+      <div className="search-results">
+        <ul>
+          {filteredResults.map((result, index) => (
+            <li key={index} onClick={() => handleNavigation(result)}>
+              {result.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
+
+  {/* 🛒 Cart Option */}
+  <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+        cursor: "pointer",
+        padding: "5px 10px",
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        backgroundColor: "#f8f8f8",
+      }}
+      onClick={() => navigate("/addtocart")} // on click go to /cart
+    >
+      <img
+        src="/cart.jpg" // make sure this image is in the /public folder
+        alt="cart"
+        width="25"
+        height="25"
+      />
+    </div>
+
+  {/* 🖼️ Experience Image */}
+  <img
+    style={{ position: "relative" }}
+    width={"20%"}
+    src={experience}
+    alt="experience"
+  />
+</Grid>
+</Grid>
         </div>
 
         <div className="responsive-mobile">

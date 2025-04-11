@@ -1,8 +1,8 @@
-import { Breadcrumbs, Container, Grid, Typography } from "@mui/material";
+import { Breadcrumbs, Container, Grid, Typography, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "../ProductDetailPage/ProductDetail.css";
 import Product from "../../Component/Product/Product";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";  // Import useNavigate
 import axios from "axios";
 import Metatag from "../../Component/MetaTags/Metatag";
 
@@ -11,13 +11,11 @@ const ProductDetailPage = () => {
   const [data, setData] = useState({});
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState('');
-
-  // console.log(data);
+  const navigate = useNavigate(); // Using useNavigate for redirection
 
   const getAllProductData = async () => {
     try {
       let res = await axios.get(`https://api.assortsmachinetools.com/api/product/${_id}`);
-      // console.log(res.data.data);
       setData(res.data.data);
       setSelectedImage(res.data.data.image2);
     } catch (error) {
@@ -45,6 +43,10 @@ const ProductDetailPage = () => {
     return <div>Loading...</div>;
   }
 
+  const handleAddToCart = () => {
+    navigate("/addtocart"); // Use navigate instead of useHistory
+  };
+
   return (
     <>
       <Metatag
@@ -71,17 +73,8 @@ const ProductDetailPage = () => {
       <div className="detail">
         <Container style={{ marginTop: "1rem" }}>
           <Grid container spacing={2}>
-            <Grid
-              item
-              xs={12}
-              md={6}
-              p={5}
-              sx={{ padding: { xs: "2px", md: "10px", sm: "5px" } }}
-            >
-              <Typography
-                sx={{ padding: { xs: "1rem", md: "2rem", sm: "1rem" } }}
-                style={{ border: "1px solid lightgray" }}
-              >
+            <Grid item xs={12} md={6} p={5} sx={{ padding: { xs: "2px", md: "10px", sm: "5px" } }}>
+              <Typography sx={{ padding: { xs: "1rem", md: "2rem", sm: "1rem" } }} style={{ border: "1px solid lightgray" }}>
                 <img src={selectedImage.includes("cloudinary") ? selectedImage : `https://api.assortsmachinetools.com/${selectedImage}`} width={"100%"} alt={data.categoryname} />
               </Typography>
               <Grid container spacing={2} mt={2}>
@@ -98,30 +91,57 @@ const ProductDetailPage = () => {
                 ))}
               </Grid>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              md={6}
-              sx={{ padding: { xs: "1rem", md: "2rem", sm: "1rem" } }}
-            >
+            <Grid item xs={12} md={6} sx={{ padding: { xs: "1rem", md: "2rem", sm: "1rem" } }}>
               <Typography style={{ fontSize: '30px' }} className="name" mt={5} mb={3}>
-                <b>
-                  {data.productname}
-                </b>
+                <b>{data.productname}</b>
               </Typography>
               <Typography className="points" variant="body1" mb={3}>
                 {data.details}
               </Typography>
+              <Button
+  onClick={handleAddToCart}
+  sx={{
+    position: 'relative',
+    overflow: 'hidden',
+    color: 'white',
+    fontSize: '18px',
+    padding: '12px 25px',
+    borderRadius: '10px',
+    textTransform: 'none',
+    backgroundColor: '#1976d2',
+    transition: 'background 0.3s ease',
+    zIndex: 1,
+    '&:before': {
+      content: '""',
+      position: 'absolute',
+      top: '100%',
+      left: 0,
+      width: '100%',
+      height: '100%',
+      backgroundColor: '#004ba0', // darker shade
+      transition: 'top 0.3s ease-in-out',
+      zIndex: -1,
+    },
+    '&:hover:before': {
+      top: 0,
+    },
+    '&:hover': {
+      color: '#fff',
+    },
+  }}
+>
+  Add to Cart
+</Button>
+
             </Grid>
           </Grid>
         </Container>
       </div>
-      <Container >
+
+      <Container>
         <Typography mt={5}>
           <Typography style={{ textAlign: 'center', fontSize: '30px' }} mb={3}>
-            <b>
-              Details Of {data.productname}
-            </b>
+            <b>Details Of {data.productname}</b>
           </Typography>
           <div style={{ overflowX: 'auto' }} dangerouslySetInnerHTML={{ __html: data.tableData }} />
         </Typography>
