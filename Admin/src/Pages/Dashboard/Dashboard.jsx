@@ -19,12 +19,12 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const categoryRes = await axios.get('https://api.assortsmachinetools.com/api/category');
-      const subcategoryRes = await axios.get('https://api.assortsmachinetools.com/api/subcategory');
-      const productRes = await axios.get('https://api.assortsmachinetools.com/api/product');
-      const banner = await axios.get('https://api.assortsmachinetools.com/api/banner');
-      const contactEnquiryRes = await axios.get('https://api.assortsmachinetools.com/api/contact');
-      const newlanchdata = await axios.get('https://api.assortsmachinetools.com/api/get-all-enquiry');
+      const categoryRes = await axios.get('http://localhost:8001/api/category');
+      const subcategoryRes = await axios.get('http://localhost:8001/api/subcategory');
+      const productRes = await axios.get('http://localhost:8001/api/product');
+      const banner = await axios.get('http://localhost:8001/api/banner');
+      const contactEnquiryRes = await axios.get('http://localhost:8001/api/contact');
+      const newlanchdata = await axios.get('http://localhost:8001/api/get-all-enquiry');
 
       setCategories(categoryRes.data.data.length);
       setSubcategories(subcategoryRes.data.data.length);

@@ -14,7 +14,7 @@ const EditProduct = () => {
     const [catedata, setCatedata] = useState([]);
     const getApiCateData = async () => {
         try {
-            let res = await axios.get("https://api.assortsmachinetools.com/api/category");
+            let res = await axios.get("http://localhost:8001/api/category");
             setCatedata(res.data.data);
         } catch (error) {
             console.log(error);
@@ -24,7 +24,7 @@ const EditProduct = () => {
     const [subcatedata, setSubcatedata] = useState([]);
     const getApiSubData = async () => {
         try {
-            let res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
+            let res = await axios.get("http://localhost:8001/api/subcategory");
             setSubcatedata(res.data.data);
         } catch (error) {
             console.log(error);
@@ -61,7 +61,7 @@ const EditProduct = () => {
 
     const getApiData = async () => {
         try {
-            let res = await axios.get(`https://api.assortsmachinetools.com/api/product/${_id}`);
+            let res = await axios.get(`http://localhost:8001/api/product/${_id}`);
             // console.log(res)
             setData(res.data.data);
         } catch (error) {
@@ -84,7 +84,7 @@ const EditProduct = () => {
             formData.append("tableData", data.tableData);
             formData.append("active", data.active);
             setLoading(true);
-            const res = await axios.put(`https://api.assortsmachinetools.com/api/product/${_id}`, formData);
+            const res = await axios.put(`http://localhost:8001/api/product/${_id}`, formData);
             if (res.status === 200) {
                 toast.success("Product updated");
                 navigate("/all-products");

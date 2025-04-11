@@ -10,6 +10,8 @@ const bannerrouter = require("./Route/BannerRouter");
 const newLanchRouter = require("./Route/NewLanchRouter");
 const BlogRouter = require("./Route/BlogRouter.js");
 const enquiryRouter = require("./Route/EnquiryRouter.js");
+const subscription = require("./Model/SubscriptionModel.js");
+const subscriptionRouter = require("./Route/SubscriptionRouter.js");
 
 const app = express();
 
@@ -42,7 +44,7 @@ app.use("/api", bannerrouter);
 app.use("/api", newLanchRouter);
 app.use("/api", BlogRouter);
 app.use("/api",enquiryRouter)
-
+app.use("/api",subscriptionRouter)
 app.listen(process.env.PORT, () => {
   console.log(`server is running at ${process.env.PORT}`);
 });

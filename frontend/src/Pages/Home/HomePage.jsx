@@ -2,6 +2,7 @@ import About from "../../Component/About/About";
 import MapSection from "../../Component/MapSection/MapSection";
 import Metatag from "../../Component/MetaTags/Metatag";
 import Product from "../../Component/Product/Product";
+import Subscripiton from "../../Component/Subscription/Subscripiton";
 import Testimonial from "../../Component/Testimonial/Testimonial";
 import CategoryPage from "../CategoryPage/CategoryPage";
 import ProductPage from "../ProductPage/ProductPage";
@@ -20,6 +21,7 @@ function Home() {
       <About />
       <Testimonial />
       <MapSection />
+      <Subscripiton/>
     </div>
   );
 }

@@ -109,7 +109,7 @@ const EditBlogs = () => {
             />
             {blog?.image && !image && (
               <img
-                src={`https://api.assortsmachinetools.com/${blog.image}`}
+                src={`http://localhost:8001/${blog.image}`}
                 alt="Blog"
                 className="mt-2"
                 style={{ width: "100px", height: "100px", objectFit: "cover" }}

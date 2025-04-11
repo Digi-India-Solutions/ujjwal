@@ -1,0 +1,75 @@
+/* Newsletter.css */
+
+.newsletter-section {
+    background: linear-gradient(135deg,white);
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .newsletter-container {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .newsletter-heading {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #12508d;
+    font-weight: 600;
+  }
+  
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .newsletter-input {
+    padding: 15px 20px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .newsletter-input:focus {
+    border-color: #00a4db;
+  }
+  
+  .newsletter-button {
+    padding: 15px 20px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(45deg, #00a8f4, #12508d);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .newsletter-button:hover {
+    background: linear-gradient(45deg, #12508d, #00a8f4);
+  }
+  
+  /* Responsive */
+  @media (min-width: 600px) {
+    .newsletter-form {
+      flex-direction: row;
+    }
+  
+    .newsletter-input {
+      flex: 1;
+    }
+  
+    .newsletter-button {
+      width: 160px;
+    }
+  }
+  

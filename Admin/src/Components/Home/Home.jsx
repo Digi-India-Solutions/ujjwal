@@ -28,6 +28,7 @@ import EditVoucher from '../../Pages/Vouchers/EditVoucher'
 import AllBlogs from '../../Pages/Blogs/AllBlogs'
 import AddBlogs from '../../Pages/Blogs/AddBlogs'
 import EditBlogs from '../../Pages/Blogs/EditBlogs'
+import AllSubscription from '../../Pages/Subscripiton/AllSubscription'
 const Home = () => {
   const login = sessionStorage.getItem("login")
 
@@ -81,6 +82,9 @@ const Home = () => {
               {/* Order Routes */}
               <Route path="/all-orders" element={<AllOrder />} />
               <Route path="/edit-order/:_id" element={<EditOrder />} />
+
+              {/* All Subscription Email */}
+              <Route path="/all-subscription-email" element={<AllSubscription />} />
             </Routes>
           </div>
         </>

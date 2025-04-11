@@ -15,7 +15,7 @@ const AddTag = () => {
 
     const getCategorydata = async () => {
         try {
-            const res = await axios.get("https://api.assortsmachinetools.com/api/category")
+            const res = await axios.get("http://localhost:8001/api/category")
             const categoryData = res.data.data
             setCategoryData(categoryData)
             // console.log(categoryData)
@@ -32,7 +32,7 @@ const AddTag = () => {
         e.preventDefault()
         setLoading(true)
         try {
-            let res = await axios.post("https://api.assortsmachinetools.com/api/subcategory", data)
+            let res = await axios.post("http://localhost:8001/api/subcategory", data)
             // console.log(res)
             if (res.status === 200) {
                 toast.success("Product Category is created")
