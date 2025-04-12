@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Base API URL
-const BASE_URL = "http://localhost:8001/api/blog";
+const BASE_URL = "https://api.assortsmachinetools.com/api/blog";
 
 // Thunks
 export const fetchBlogs = createAsyncThunk("blog/fetchBlogs", async (_, { rejectWithValue }) => {

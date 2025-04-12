@@ -12,7 +12,7 @@ const Product = () => {
   const getCategoryData = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8001/api/new-lauch-category"
+        "https://api.assortsmachinetools.com/api/new-lauch-category"
       );
       setData(res.data.data);
     } catch (error) {
@@ -87,7 +87,7 @@ const Product = () => {
                       className="product"
                       width="100%"
                       style={{ height: "200px" }}
-                      src={item.image.includes("cloudinary") ? item.image : `http://localhost:8001/${item.image}`}
+                      src={item.image.includes("cloudinary") ? item.image : `https://api.assortsmachinetools.com/${item.image}`}
                       alt={item.categoryname}
                     />
                     <Typography

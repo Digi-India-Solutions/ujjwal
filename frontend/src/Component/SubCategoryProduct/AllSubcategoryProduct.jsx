@@ -11,7 +11,7 @@ const AllSubcategoryProduct = () => {
 
   const getAllProductData = async () => {
     try {
-      const res = await axios.get("http://localhost:8001/api/product");
+      const res = await axios.get("https://api.assortsmachinetools.com/api/product");
     
       const resData = res.data.data;
 
@@ -69,7 +69,7 @@ const AllSubcategoryProduct = () => {
                             src={
                               item.image1.includes("cloudinary")
                                 ? item.image1
-                                : `http://localhost:8001/${item.image1}`
+                                : `https://api.assortsmachinetools.com/${item.image1}`
                             }
                             alt={item.name}
                           />

@@ -5,7 +5,7 @@ import axios from 'axios';
 // Thunks
 export const fetchCategories = createAsyncThunk('category/fetchCategories', async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get('http://localhost:8001/api/category');
+    const response = await axios.get('https://api.assortsmachinetools.com/api/category');
     return response.data.data.reverse();
   } catch (error) {
     return rejectWithValue(error.response.data);
@@ -14,7 +14,7 @@ export const fetchCategories = createAsyncThunk('category/fetchCategories', asyn
 
 export const fetchCategory = createAsyncThunk('category/fetchCategory', async (id, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`http://localhost:8001/api/category/${id}`);
+    const response = await axios.get(`https://api.assortsmachinetools.com/api/category/${id}`);
     return response.data.data;
   } catch (error) {
     return rejectWithValue(error.response.data);
@@ -23,7 +23,7 @@ export const fetchCategory = createAsyncThunk('category/fetchCategory', async (i
 
 export const addCategory = createAsyncThunk('category/addCategory', async (formData, { rejectWithValue }) => {
   try {
-    const response = await axios.post('http://localhost:8001/api/category', formData);
+    const response = await axios.post('https://api.assortsmachinetools.com/api/category', formData);
     return response.data.data;
   } catch (error) {
     return rejectWithValue(error.response.data);
@@ -32,7 +32,7 @@ export const addCategory = createAsyncThunk('category/addCategory', async (formD
 
 export const updateCategory = createAsyncThunk('category/updateCategory', async ({ id, formData }, { rejectWithValue }) => {
   try {
-    const response = await axios.put(`http://localhost:8001/api/category/${id}`, formData);
+    const response = await axios.put(`https://api.assortsmachinetools.com/api/category/${id}`, formData);
     return response.data.data;
   } catch (error) {
     return rejectWithValue(error.response.data);
@@ -41,7 +41,7 @@ export const updateCategory = createAsyncThunk('category/updateCategory', async 
 
 export const deleteCategory = createAsyncThunk('category/deleteCategory', async (id, { rejectWithValue }) => {
   try {
-    const response = await axios.delete(`http://localhost:8001/api/category/${id}`);
+    const response = await axios.delete(`https://api.assortsmachinetools.com/api/category/${id}`);
     return { id, status: response.status };
   } catch (error) {
     return rejectWithValue(error.response.data);

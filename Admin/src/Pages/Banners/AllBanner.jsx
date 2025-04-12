@@ -66,7 +66,7 @@ const AllBanner = () => {
                         {currentItems.map((item, index) => (
                             <tr key={item._id}>
                                 <th scope="row">{index + 1}</th>
-                                <td><img src={item.image.includes("cloudinary") ? item.image : `http://localhost:8001/${item.image}`} alt="" style={{ width: "100%", height: "250px" }} /></td>
+                                <td><img src={item.image.includes("cloudinary") ? item.image : `https://api.assortsmachinetools.com/${item.image}`} alt="" style={{ width: "100%", height: "250px" }} /></td>
                                 <td><Link className="bt edit" to={`/edit-banner/${item._id}`}>Edit <i className="fa-solid fa-pen-to-square"></i></Link></td>
                                 <td><button className="bt delete" onClick={() => handleDelete(item._id)}>Delete <i className="fa-solid fa-trash"></i></button></td>
                             </tr>

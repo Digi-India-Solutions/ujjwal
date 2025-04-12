@@ -12,7 +12,7 @@ const AllProduct = () => {
 
   const getApiData = async () => {
     try {
-      let res = await axios.get("http://localhost:8001/api/product");
+      let res = await axios.get("https://api.assortsmachinetools.com/api/product");
       const newData = res.data.data;
       setData(newData.reverse());
     } catch (error) {
@@ -22,7 +22,7 @@ const AllProduct = () => {
 
   const deleteRecord = async (_id) => {
     try {
-      let res = await axios.delete("http://localhost:8001/api/product/" + _id);
+      let res = await axios.delete("https://api.assortsmachinetools.com/api/product/" + _id);
       // console.log(res)
       if (res.status === 200) {
         toast.success("Product deleted successfully");
@@ -96,7 +96,7 @@ const AllProduct = () => {
                     href={
                       item.image1?.includes("cloudinary")
                         ? item.image1
-                        : `http://localhost:8001/${item.image1}`
+                        : `https://api.assortsmachinetools.com/${item.image1}`
                     }
                     target="_blank"
                     rel="noopener noreferrer"
@@ -105,7 +105,7 @@ const AllProduct = () => {
                       src={
                         item.image1?.includes("cloudinary")
                           ? item.image1
-                          : `http://localhost:8001/${item.image1}`
+                          : `https://api.assortsmachinetools.com/${item.image1}`
                       }
                       alt=""
                       style={{ height: 50 }}
@@ -117,7 +117,7 @@ const AllProduct = () => {
                     href={
                       item.image2?.includes("cloudinary")
                         ? item.image2
-                        : `http://localhost:8001/${item.image2}`
+                        : `https://api.assortsmachinetools.com/${item.image2}`
                     }
                     target="_blank"
                     rel="noopener noreferrer"
@@ -126,7 +126,7 @@ const AllProduct = () => {
                       src={
                         item.image2?.includes("cloudinary")
                           ? item.image2
-                          : `http://localhost:8001/${item.image2}`
+                          : `https://api.assortsmachinetools.com/${item.image2}`
                       }
                       alt=""
                       style={{ height: 50 }}
