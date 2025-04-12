@@ -184,7 +184,7 @@ const CategoryPage = () => {
                     {category.items.map((item, idx) => (
                       <li key={idx}>
                         <KeyboardDoubleArrowRightIcon />
-                        <Link to={`/our-category/products/${item._id}`}>
+                        <Link to={`/our-category/subcategory-product/${item.subcategoryName}`}>
                           {item.subcategoryName}
                         </Link>
                       </li>
@@ -205,13 +205,14 @@ const CategoryPage = () => {
                   {data.map((item, index) => (
                     <Grid item xs={6} sm={6} md={4} key={index}>
                       <article className="card">
-                        <Link to={`/our-category/products/${item._id}`}>
+                        <Link to={`/our-category/${item.categoryname}`}>
                           <div className="card__img">
                             <img
                               src={item.image.includes("cloudinary") ? item.image : `https://api.assortsmachinetools.com/${item.image}`}
                               alt={item.categoryname}
                             />
                           </div>
+                        
                           <div className="card__name">
                             <p style={{ margin: "0" }}>
                               {item.categoryname.length > 15

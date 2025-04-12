@@ -18,7 +18,7 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import axios from "axios";
-
+import InstagramIcon from '@mui/icons-material/Instagram';
 const HeaderPage = () => {
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -33,7 +33,7 @@ const HeaderPage = () => {
   // Fetch and set categories
   const getApiData = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
+      const res = await axios.get("http://localhost:8001/api/subcategory");
       const newData = res.data.data;
 
       // Group data by category
@@ -62,7 +62,7 @@ const HeaderPage = () => {
   // Fetch and set category data
   const getCategorydata = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/category");
+      const res = await axios.get("http://localhost:8001/api/category");
       setData(res.data.data);
     } catch (error) {
       console.log(error);
@@ -72,7 +72,7 @@ const HeaderPage = () => {
   // Fetch and set subcategory data
   const getSubCategorydata = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
+      const res = await axios.get("http://localhost:8001/api/subcategory");
       setSubCategory(res.data.data);
     } catch (error) {
       console.log(error);
@@ -82,7 +82,7 @@ const HeaderPage = () => {
   // Fetch and set product data
   const getAllProduct = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/product");
+      const res = await axios.get("http://localhost:8001/api/product");
       // console.log("Product ", res.data.data);
       setProducts(res.data.data);
     } catch (error) {
@@ -200,6 +200,10 @@ const HeaderPage = () => {
                 <a href="https://x.com/ASSORTS_Tools" target="_blank" rel="noopener noreferrer">
                   <TwitterIcon className="twitr" />
                 </a>
+                <a href="https://www.instagram.com/assortsmachinetools_?igsh=MTA0NmVsN29mc2t1YQ==" target="_blank" rel="noopener noreferrer">
+  <InstagramIcon className="insta" />
+</a>
+
               </div>
             </Box>
           </Container>
@@ -233,12 +237,12 @@ const HeaderPage = () => {
                       <div className="dropdown_inner_content">
                         {categories.map((category) => (
                           <div key={category.name} className="dropdownWidth">
-                            <Typography className="dropdownheading">{category.name}</Typography>
+                          <Link to={`/our-category/${category.name}`}> <Typography className="dropdownheading">{category.name}</Typography></Link> 
                             {category.items.map((item) => (
                               <p key={item._id}>
                                 <Link
                                   className="headingContent"
-                                  to={`/our-category/products/${item._id}`}
+                                  to={`/our-category/subcategory-product/${item.subcategoryName}`}
                                 >
                                   <KeyboardDoubleArrowRightIcon
                                     style={{ fontSize: "14px", color: "rgb(18, 80, 141)" }}
@@ -330,7 +334,7 @@ const HeaderPage = () => {
       onClick={() => navigate("/addtocart")} // on click go to /cart
     >
       <img
-        src="/cart.jpg" // make sure this image is in the /public folder
+        src="/cart.png" // make sure this image is in the /public folder
         alt="cart"
         width="25"
         height="25"
@@ -430,6 +434,11 @@ const HeaderPage = () => {
             <li className="responsiveli">
               <Link to={"/contact"} onClick={closeMenu}>
                 Contact
+              </Link>
+            </li>
+            <li className="responsiveli">
+              <Link to={"/addtocart"} onClick={closeMenu}>
+                Cart
               </Link>
             </li>
           </ul>

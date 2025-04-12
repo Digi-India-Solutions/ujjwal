@@ -217,6 +217,13 @@ p {
   cursor: pointer;
   border-radius: 50%;
 }
+.insta {
+  background-color: #E1306C; /* Instagram pink */
+  color: white; /* Icon color */
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 50%;
+}
 
 .youtube {
   background-color: #ff0000;

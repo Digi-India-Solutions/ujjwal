@@ -12,7 +12,7 @@ const Product = () => {
   const getCategoryData = async () => {
     try {
       const res = await axios.get(
-        "https://api.assortsmachinetools.com/api/new-lauch-category"
+        "http://localhost:8001/api/new-lauch-category"
       );
       setData(res.data.data);
     } catch (error) {
@@ -81,13 +81,13 @@ const Product = () => {
           <Slider {...settings}>
             {data.map((item, index) => (
               <div key={index} className="slick-slide-custom">
-                <Link to={`/our-category/products/${item._id}`}>
+                <Link to={`/our-category/${item.categoryname}`}>
                   <div className="box">
                     <img
                       className="product"
                       width="100%"
                       style={{ height: "200px" }}
-                      src={item.image.includes("cloudinary") ? item.image : `https://api.assortsmachinetools.com/${item.image}`}
+                      src={item.image.includes("cloudinary") ? item.image : `http://localhost:8001/${item.image}`}
                       alt={item.categoryname}
                     />
                     <Typography

@@ -1,4 +1,5 @@
 const { deleteImage, uploadImage } = require("../Cloudnary/Cloudnary")
+const { product } = require("../Model/ProductModel")
 const subcategory = require("../Model/SubcategoryModel")
 
 const createSubcategory = async (req, res) => {
@@ -122,42 +123,51 @@ const deleteSubcategory = async (req, res) => {
 
 const updateSubcategory = async (req, res) => {
     try {
-        let data = await subcategory.findOne({ _id: req.params._id })
-        // console.log(data)
+        let data = await subcategory.findOne({ _id: req.params._id });
+
         if (data) {
-            if(req.file) {
-                if(data.image) {
-                    await deleteImage(data.image)
+            if (req.file) {
+                if (data.image) {
+                    await deleteImage(data.image);
                 }
-                const localPath = req.file.path
-                const url = await uploadImage(localPath, "subcategory")
-                data.image = url
-            }else {
-                data.image = data.image
+                const localPath = req.file.path;
+                const url = await uploadImage(localPath, "subcategory");
+                data.image = url;
             }
-            data.categoryname=req.body.categoryname??data.categoryname
-            data.subcategoryName=req.body.subcategoryName??data.subcategoryName
-            await data.save()
+
+            data.categoryname = req.body.categoryname ?? data.categoryname;
+
+            // Sync subcategory name to products if it has changed
+            if (req.body.subcategoryName && req.body.subcategoryName !== data.subcategoryName) {
+                await product.updateMany(
+                    { subcategoryName: data.subcategoryName },
+                    { $set: { subcategoryName: req.body.subcategoryName } }
+                );
+                data.subcategoryName = req.body.subcategoryName;
+            }
+
+            await data.save();
+
             res.status(200).json({
                 success: true,
                 mess: "Subcategory updated successfully",
                 data: data
-            })
-        }
-        else {
+            });
+        } else {
             res.status(403).json({
                 success: false,
                 mess: "Subcategory not found"
-            })
+            });
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).json({
             success: false,
             mess: "Internal server error"
-        })
+        });
     }
-}
+};
+
 module.exports = {
     createSubcategory: createSubcategory,
     getSubcategory: getSubcategory,
