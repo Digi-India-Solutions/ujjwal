@@ -8,7 +8,11 @@ const subcategorySchema = new mongoose.Schema({
     subcategoryName:{
         type:String,
         required:[true,"SubCategory Name is must Required"]
-    }
+    },
+    image:{
+        type:String,
+        required:[true,"SubCategory Image is must Required"]
+    },
 })
 
 

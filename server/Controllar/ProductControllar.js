@@ -1,7 +1,8 @@
-const product = require("../Model/ProductModel");
+
 const fs = require("fs");
 const path = require("path");
 const { uploadImage, deleteImage } = require("../Cloudnary/Cloudnary");
+const { product } = require("../Model/ProductModel");
 
 const createRecord = async (req, res) => {
   try {
@@ -192,6 +193,8 @@ const getproduct = async (req, res) => {
       });
     }
   } catch (error) {
+    console.log(error);
+    
     res.status(500).json({
       success: true,
       mess: "Internal Server Error",

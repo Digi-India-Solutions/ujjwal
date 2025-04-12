@@ -1,17 +1,30 @@
+const { deleteImage, uploadImage } = require("../Cloudnary/Cloudnary")
 const subcategory = require("../Model/SubcategoryModel")
 
 const createSubcategory = async (req, res) => {
     try {
         const { categoryname, subcategoryName } = req.body
-        // console.log(req.body, "Iam hit")
+      
         if (!categoryname || !subcategoryName) {
             return res.status(401).json({
                 success: false,
                 mess: "Fill all required feild"
             })
         }
+        
         else {
+           if(!req.file){
+            return res.status(401).json({
+                success: false,
+                mess: "provide image"
+            })
+           }
             const data = new subcategory({ categoryname, subcategoryName })
+            if(req.file) {
+                const localPath = req.file.path
+                const url = await uploadImage(localPath, "subcategory")
+               data.image = url
+            }
             await data.save()
             res.status(200).json({
                 success: true,
@@ -30,6 +43,7 @@ const createSubcategory = async (req, res) => {
 const getSubcategory = async (req, res) => {
     try {
         let data = await subcategory.find()
+      
         if (data) {
             res.status(200).json({
                 success: true,
@@ -81,6 +95,9 @@ const deleteSubcategory = async (req, res) => {
     try {
         let data = await subcategory.findOne({ _id: req.params._id })
         if (data) {
+            if(data.image) {
+                await deleteImage(data.image)
+            }
             await data.deleteOne()
             res.status(200).json({
                 success: true,
@@ -108,7 +125,16 @@ const updateSubcategory = async (req, res) => {
         let data = await subcategory.findOne({ _id: req.params._id })
         // console.log(data)
         if (data) {
-            // console.log(req.body.categoryname)
+            if(req.file) {
+                if(data.image) {
+                    await deleteImage(data.image)
+                }
+                const localPath = req.file.path
+                const url = await uploadImage(localPath, "subcategory")
+                data.image = url
+            }else {
+                data.image = data.image
+            }
             data.categoryname=req.body.categoryname??data.categoryname
             data.subcategoryName=req.body.subcategoryName??data.subcategoryName
             await data.save()

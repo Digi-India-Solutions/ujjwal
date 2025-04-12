@@ -10,7 +10,7 @@ const AllSubscription = () => {
 
     const getApiData = async () => {
         try {
-            const res = await axios.get("http://localhost:8001/api/subscription")
+            const res = await axios.get("https://api.assortsmachinetools.com/api/subscription")
             // console.log(res)
             const newData = res.data.data
             console.log("new Data", newData);

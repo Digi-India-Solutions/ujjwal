@@ -19,7 +19,7 @@ const EditVoucher = () => {
     useEffect(() => {
         const fetchVoucher = async () => {
             try {
-                const response = await axios.get(`http://localhost:8001/api/new-lanch/${id}`);
+                const response = await axios.get(`https://api.assortsmachinetools.com/api/new-lanch/${id}`);
                 const { productName, active, image } = response.data;
                 setFormData({ productName, active });
                 setFile(image); // You can set the existing image here if needed
@@ -56,7 +56,7 @@ const EditVoucher = () => {
         }
 
         try {
-            const response = await axios.put(`http://localhost:8001/api/new-lanch/${id}`, data, {
+            const response = await axios.put(`https://api.assortsmachinetools.com/api/new-lanch/${id}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

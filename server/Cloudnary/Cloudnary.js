@@ -13,6 +13,7 @@ const uploadImage = async (file, folder) => {
             folder: folder
         })
         if(uploadFileData.secure_url) {
+          
          await fs.unlink(file, (err) => {
             if (err) {
                 console.log(err)
