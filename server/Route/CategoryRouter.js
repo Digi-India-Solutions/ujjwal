@@ -1,4 +1,4 @@
-const { createRecord, getRecord, getSingleRecord, updateRecord ,deleteRecord, newLauchCategory } = require("../Controllar/CategoryControllar")
+const { createRecord, getRecord, getSingleRecord, updateRecord ,deleteRecord, newLauchCategory, getSubCategoryById } = require("../Controllar/CategoryControllar")
 const uploader = require("../Multer/Multer")
 
 const categoryRouter = require("express").Router()
@@ -9,5 +9,5 @@ categoryRouter.get("/category/:_id", getSingleRecord)
 categoryRouter.put("/category/:_id", uploader.single("image"), updateRecord)
 categoryRouter.delete("/category/:_id", deleteRecord)
 categoryRouter.get("/new-lauch-category", newLauchCategory)
-
+categoryRouter.get("/get-sub-subcategories/:categoryname", getSubCategoryById)
 module.exports = categoryRouter

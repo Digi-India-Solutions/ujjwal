@@ -29,6 +29,7 @@ import AllBlogs from '../../Pages/Blogs/AllBlogs'
 import AddBlogs from '../../Pages/Blogs/AddBlogs'
 import EditBlogs from '../../Pages/Blogs/EditBlogs'
 import AllSubscription from '../../Pages/Subscripiton/AllSubscription'
+import AllCartEnquiry from '../../Pages/CartEnquiry/AllCartEnquiry'
 const Home = () => {
   const login = sessionStorage.getItem("login")
 
@@ -85,6 +86,7 @@ const Home = () => {
 
               {/* All Subscription Email */}
               <Route path="/all-subscription-email" element={<AllSubscription />} />
+              <Route path="/all-cart-enquiry" element={<AllCartEnquiry />} />
             </Routes>
           </div>
         </>

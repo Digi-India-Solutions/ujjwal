@@ -8,14 +8,15 @@ const AddTag = () => {
     const navigate = useNavigate()
     const [data, setData] = useState({
         categoryname: "",
-        subcategoryName: ""
+        subcategoryName: "",
+        image:""
     })
     const [categoryData, setCategoryData] = useState([])
     const [loading, setLoading] = useState(false)
 
     const getCategorydata = async () => {
         try {
-            const res = await axios.get("http://localhost:8001/api/category")
+            const res = await axios.get("https://api.assortsmachinetools.com/api/category")
             const categoryData = res.data.data
             setCategoryData(categoryData)
             // console.log(categoryData)
@@ -23,6 +24,10 @@ const AddTag = () => {
             console.log(error)
         }
     }
+    const getFileData = (e) => {
+        const { name, files } = e.target;
+        setData({ ...data, [name]: files[0] });
+      };
     const getInputData = (e) => {
         const { name, value } = e.target
         setData({ ...data, [name]: value })
@@ -30,9 +35,23 @@ const AddTag = () => {
 
     const postData = async (e) => {
         e.preventDefault()
+        const file = data.image
+          if (!file) {
+              toast.error("Please select an image");
+              return;
+            }
+        
+            if (file && file.size > 2 * 1024 * 1024) {
+              toast.error("File size should be less than 2MB");
+              return;
+            }
         setLoading(true)
+        const formdata= new FormData()
+        formdata.append("categoryname", data.categoryname)
+        formdata.append("subcategoryName", data.subcategoryName)
+        formdata.append("image", file)
         try {
-            let res = await axios.post("http://localhost:8001/api/subcategory", data)
+            let res = await axios.post("https://api.assortsmachinetools.com/api/subcategory", formdata)
             // console.log(res)
             if (res.status === 200) {
                 toast.success("Product Category is created")
@@ -76,6 +95,19 @@ const AddTag = () => {
                             <label htmlFor="categoryName" className="form-label">SubCategory Name <sup className='text-danger'>*</sup></label>
                             <input type="text" name="subcategoryName" id="categoryName" className="form-control" onChange={getInputData} placeholder='Subcategory Name' />
                         </div>
+                        <div className="mb-2">
+            <label htmlFor="image" className="form-label">
+              SubCategory Image <sup className="text-danger">*</sup>
+            </label>
+            <input
+              type="file"
+              name="image"
+              id="image"
+              className="form-control"
+              onChange={getFileData}
+              required
+            />
+          </div>
                     </div>
                     <button type="submit" className="mybtnself" disabled={loading}>
                         {loading ? 'Loading...' : 'Add  Subcategory'}

@@ -1,54 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import './SearchByCategory.css'; // Assuming we are using a custom CSS file
+
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const SearchByCategory = () => {
-  const { _id } = useParams(); // Get category ID from the route
-  const [subcategories, setSubcategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { categoryName } = useParams(); // e.g., "Electronics"
+  const [filteredSubcategories, setFilteredSubcategories] = useState([]);
 
   useEffect(() => {
-    // Fetch subcategories from the API
     const fetchSubcategories = async () => {
       try {
-        const response = await axios.get('https://api.assortsmachinetools.com/api/subcategory');
-        if (response.data.success) {
-          setSubcategories(response.data.data);
-        }
-      } catch (err) {
-        setError('Failed to fetch data');
-      } finally {
-        setLoading(false);
+        const response = await axios.get("https://api.assortsmachinetools.com/api/subcategory"); 
+
+        const allSubcategories = response.data.data;
+
+        console.log("allSubcategories", allSubcategories);
+        
+        // Filter based on category name from URL
+        const filtered = allSubcategories.filter(
+          (sub) => sub.categoryname.toLowerCase() === categoryName.toLowerCase()
+        );
+
+        setFilteredSubcategories(filtered);
+      } catch (error) {
+        console.error("Error fetching subcategories:", error);
       }
     };
 
     fetchSubcategories();
-  }, [_id]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
+  }, [categoryName]);
 
   return (
-    <div className="category-page-container">
-      <h1>Category Details for ID: {_id}</h1>
-      <div className="subcategory-list">
-        {subcategories
-          .filter(subcat => subcat._id === _id)
-          .map(subcategory => (
-            <div key={subcategory._id} className="subcategory-item">
-              <h2>{subcategory.subcategoryName}</h2>
-              <p><strong>Category:</strong> {subcategory.categoryname}</p>
-              <p><strong>Subcategory ID:</strong> {subcategory._id}</p>
-            </div>
+    <div>
+      <h2>Subcategories for "{categoryName}"</h2>
+      {filteredSubcategories.length > 0 ? (
+        <ul>
+          {filteredSubcategories.map((sub, index) => (
+            <li key={index}>{sub.subcategoryName}</li>
           ))}
-      </div>
+        </ul>
+      ) : (
+        <p>No subcategories found.</p>
+      )}
     </div>
   );
 };

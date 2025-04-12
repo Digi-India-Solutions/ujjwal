@@ -2,6 +2,7 @@ const productCategory = require("../Model/CategoryModel");
 const fs = require("fs");
 const path = require("path");
 const { uploadImage, deleteImage } = require("../Cloudnary/Cloudnary");
+const subcategory = require("../Model/SubcategoryModel");
 
 const createRecord = async (req, res) => {
     try {
@@ -176,11 +177,25 @@ const newLauchCategory = async (req, res) => {
         });
     }
 }
+
+const getSubCategoryById = async (req, res) => {
+    try {
+        const { categoryname } = req.params;
+    
+        const subcategories = await subcategory.find({ categoryname });
+    
+        res.status(200).json(subcategories);
+      } catch (error) {
+        console.error("Error fetching subcategories:", error);
+        res.status(500).json({ message: "Internal server error" });
+      }
+};
 module.exports = {
     createRecord,
     getRecord,
     getSingleRecord,
     updateRecord,
     deleteRecord,
-    newLauchCategory
+    newLauchCategory,
+    getSubCategoryById
 };

@@ -36,6 +36,7 @@ router.post("/create-cart-enquiry", async (req, res) => {
 router.get("/cart-enquiry", async (req, res) => {
   try {
     const enquiries = await InfoCartEnquiry.find().sort({ createdAt: -1 });
+   
     res.status(200).json(enquiries);
   } catch (err) {
     res

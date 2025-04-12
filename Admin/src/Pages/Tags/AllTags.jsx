@@ -8,11 +8,11 @@ import 'react-toastify/dist/ReactToastify.css';
 const AllTags = () => {
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5); // Number of items per page
+    const [itemsPerPage] = useState(10); // Number of items per page
 
     const getApiData = async () => {
         try {
-            let res = await axios.get("http://localhost:8001/api/subcategory");
+            let res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
             const newData = res.data.data;
             setData(newData.reverse());
         } catch (error) {
@@ -20,9 +20,10 @@ const AllTags = () => {
         }
     };
 
+    
     const deleteRecord = async (_id) => {
         try {
-            let res = await axios.delete("http://localhost:8001/api/subcategory/" + _id);
+            let res = await axios.delete("https://api.assortsmachinetools.com/api/subcategory/" + _id);
             if (res.status === 200) {
                 toast.success("Subcategory Deleted Successfully");
             }
@@ -78,6 +79,7 @@ const AllTags = () => {
                             <th scope="col">Sr.No.</th>
                             <th scope="col">Category Name</th>
                             <th scope="col">Subcategory Name</th>
+                            <th>Image</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                         </tr>
@@ -89,6 +91,7 @@ const AllTags = () => {
                                 <td>{indexOfFirstItem + index + 1}</td>
                                 <td>{item.categoryname}</td>
                                 <td>{item.subcategoryName}</td>
+                                <td><img src={item.image} alt={item.subcategoryName} /></td>
                                 <td><Link  className="bt edit" to={`/edit-tag/${item._id}`}>Edit <i class="fa-solid fa-pen-to-square"></i></Link></td>
                                 <td><Link  className="bt delete" onClick={()=>deleteRecord(item._id)}>Delete <i class="fa-solid fa-trash"></i></Link></td>
                             </tr>
