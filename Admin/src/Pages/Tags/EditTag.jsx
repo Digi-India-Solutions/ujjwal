@@ -17,7 +17,7 @@ const EditTag = () => {
 
   const getCategoryData = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/category");
+      const res = await axios.get("http://localhost:8001/api/category");
       setCategoryData(res.data.data);
     } catch (error) {
       console.log(error);
@@ -28,20 +28,22 @@ const EditTag = () => {
     const { name, files } = e.target;
     setData({ ...data, [name]: files[0] });
   };
+
   const getInputData = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
+   
   };
 
   const getApiData = async () => {
     try {
-      let res = await axios.get("https://api.assortsmachinetools.com/api/subcategory/" + _id);
+      let res = await axios.get("http://localhost:8001/api/subcategory/" + _id);
       setData(res.data.data);
     } catch (error) {
       console.log(error);
     }
   };
-
+ 
   const postData = async (e) => {
     e.preventDefault();
     const file = data.image;
@@ -60,7 +62,7 @@ const EditTag = () => {
     setLoading(true);
     try {
       let res = await axios.put(
-        "https://api.assortsmachinetools.com/api/subcategory/" + _id,
+        "http://localhost:8001/api/subcategory/" + _id,
         formdata
       );
       if (res.status === 200) {

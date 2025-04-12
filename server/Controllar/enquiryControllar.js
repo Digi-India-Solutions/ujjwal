@@ -35,7 +35,7 @@ const createEnquiry = async (req, res) => {
 
 const getAllEnquiry = async (req, res) => {
   try {
-    const enquiryData = await enquiry.find({});
+    const enquiryData = await enquiry.find().sort({ createdAt: -1 });
     return res.status(200).json({
       success: true,
       message: "Enquiry fetched successfully",

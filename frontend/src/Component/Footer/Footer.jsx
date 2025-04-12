@@ -9,6 +9,8 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import InstagramIcon from '@mui/icons-material/Instagram';
+
 const Footer = () => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const Footer = () => {
     window.scrollTo(0, 0);
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("https://api.assortsmachinetools.com/api/category");
+        const res = await axios.get("http://localhost:8001/api/category");
         const newData = res.data.data;
 
         // const groupedData = newData.reduce((acc, item) => {
@@ -115,7 +117,7 @@ const Footer = () => {
                   {categories.slice(0, 5).map((category) => (
                     <div key={category.categoryname} className="footer-category">
                       <Link
-                        to={`/our-category/products/${category._id}`}
+                        to={`/our-category/${category.categoryname}`}
                         style={{ textDecoration: "none", color: "inherit" }}
                       >
                         <Typography className="footer-category-heading">
@@ -177,6 +179,9 @@ const Footer = () => {
                       >
                         <TwitterIcon className="twitr" />
                       </a>
+                      <a href="https://www.instagram.com/assortsmachinetools_?igsh=MTA0NmVsN29mc2t1YQ==" target="_blank" rel="noopener noreferrer">
+  <InstagramIcon className="insta" />
+</a>
                     </div>
                   </Box>
                 </div>

@@ -28,7 +28,9 @@ const createSubscription = async (req, res) => {
 
 const getSubscription = async (req, res) => {
   try {
-    const data = await subscription.find();
+    const data = await subscription.find().sort({ createdAt: -1 });
+    console.log("Subscription data", data);
+    
     res.status(200).json({
       success: true,
       mess: "Subscription found",

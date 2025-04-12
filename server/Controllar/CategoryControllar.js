@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const { uploadImage, deleteImage } = require("../Cloudnary/Cloudnary");
 const subcategory = require("../Model/SubcategoryModel");
+const { product } = require("../Model/ProductModel");
 
 const createRecord = async (req, res) => {
     try {
@@ -87,8 +88,25 @@ const updateRecord = async (req, res) => {
     try {
         let data = await productCategory.findOne({ _id: req.params._id });
         if (data) {
-            data.categoryname = req.body.categoryname ?? data.categoryname;
+            data.categoryname =  data.categoryname;
             data.active = req.body.active ?? data.active;
+            if (req.body.categoryname && req.body.categoryname.trim() !== data.categoryname.trim()) {
+                const oldName = data.categoryname.trim();
+                const newName = req.body.categoryname.trim();
+            
+                await subcategory.updateMany(
+                    { categoryname: oldName },
+                    { $set: { categoryname: newName } }
+                );
+            
+                await product.updateMany(
+                    { categoryname: oldName },
+                    { $set: { categoryname: newName } }
+                );
+            
+                data.categoryname = newName;
+            }
+            
             if (req.file) {
                 // Delete the old image from local storage
                 if (data.image) {

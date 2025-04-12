@@ -10,11 +10,11 @@ const AllCartEnquiry = () => {
 
   const getApiData = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/cart-enquiry");
+      const res = await axios.get("http://localhost:8001/api/cart-enquiry");
 
       const newData = res.data;
 
-      setData(newData.reverse());
+      setData(newData);
     } catch (error) {
       console.log(error);
     }
