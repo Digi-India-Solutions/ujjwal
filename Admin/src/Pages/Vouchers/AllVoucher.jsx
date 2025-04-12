@@ -10,7 +10,7 @@ const AllVoucher = () => {
 
     const getApiData = async () => {
         try {
-            const res = await axios.get("http://localhost:8001/api/get-all-enquiry")
+            const res = await axios.get("https://api.assortsmachinetools.com/api/get-all-enquiry")
             // console.log(res)
             const newData = res.data.data
             console.log("new Data", newData);

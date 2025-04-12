@@ -14,7 +14,7 @@ const AddProduct = () => {
   const [active, setActive] = useState(false);
   const getApiData = async () => {
     try {
-      let res = await axios.get("http://localhost:8001/api/category");
+      let res = await axios.get("https://api.assortsmachinetools.com/api/category");
       setCatedata(res.data.data);
     } catch (error) {
       console.log(error);
@@ -23,7 +23,7 @@ const AddProduct = () => {
 
   const getApiSubData = async (categoryName) => {
     try {
-      let res = await axios.get("http://localhost:8001/api/subcategory");
+      let res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
       // Filter subcategories based on selected category
       const filteredSubcategories = res.data.data.filter(
         (item) => item.categoryname === categoryName
@@ -89,7 +89,7 @@ const AddProduct = () => {
       formData.append("active", active);
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:8001/api/product",
+        "https://api.assortsmachinetools.com/api/product",
         formData
       );
       if (res.status === 200) {

@@ -20,7 +20,7 @@ const Subscripiton = () => {
         toast.error("Invalid email format.");
         return;
       }
-    const response=  await axios.post("http://localhost:8001/api/create-subscription", {
+    const response=  await axios.post("https://api.assortsmachinetools.com/api/create-subscription", {
         email,
       });
       if(response.status===200){

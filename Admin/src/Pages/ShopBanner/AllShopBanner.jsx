@@ -10,7 +10,7 @@ const AllShopBanner = () => {
 
     const getApiData = async () => {
         try {
-            const res = await axios.get("http://localhost:8001/api/contact")
+            const res = await axios.get("https://api.assortsmachinetools.com/api/contact")
             // console.log(res)
             const newData = res.data.data
             setData(newData.reverse())

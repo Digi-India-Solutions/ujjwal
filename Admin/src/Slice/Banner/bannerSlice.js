@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const addBanner = createAsyncThunk('banner/addBanner', async (formData, { rejectWithValue }) => {
   try {
-    const response = await axios.post('http://localhost:8001/api/banner', formData);
+    const response = await axios.post('https://api.assortsmachinetools.com/api/banner', formData);
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.data);
@@ -12,7 +12,7 @@ export const addBanner = createAsyncThunk('banner/addBanner', async (formData, {
 
 export const fetchBanners = createAsyncThunk('banner/fetchBanners', async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get('http://localhost:8001/api/banner');
+    const response = await axios.get('https://api.assortsmachinetools.com/api/banner');
     // console.log(response)
     return response.data.data.reverse();
   } catch (error) {
@@ -22,7 +22,7 @@ export const fetchBanners = createAsyncThunk('banner/fetchBanners', async (_, { 
 
 export const fetchBanner = createAsyncThunk('banner/fetchBanner', async (id, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`http://localhost:8001/api/banner/${id}`);
+    const response = await axios.get(`https://api.assortsmachinetools.com/api/banner/${id}`);
     return response.data.data;
   } catch (error) {
     return rejectWithValue(error.response.data);
@@ -31,7 +31,7 @@ export const fetchBanner = createAsyncThunk('banner/fetchBanner', async (id, { r
 
 export const updateBanner = createAsyncThunk('banner/updateBanner', async ({ id, formData }, { rejectWithValue }) => {
   try {
-    const response = await axios.put(`http://localhost:8001/api/banner/${id}`, formData);
+    const response = await axios.put(`https://api.assortsmachinetools.com/api/banner/${id}`, formData);
     return response.data.data;
   } catch (error) {
     return rejectWithValue(error.response.data);
@@ -40,7 +40,7 @@ export const updateBanner = createAsyncThunk('banner/updateBanner', async ({ id,
 
 export const deleteBanner = createAsyncThunk('banner/deleteBanner', async (id, { rejectWithValue }) => {
   try {
-    const response = await axios.delete(`http://localhost:8001/api/banner/${id}`);
+    const response = await axios.delete(`https://api.assortsmachinetools.com/api/banner/${id}`);
     return { id, status: response.status };
   } catch (error) {
     return rejectWithValue(error.response.data);

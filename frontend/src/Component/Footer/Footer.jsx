@@ -18,7 +18,7 @@ const Footer = () => {
     window.scrollTo(0, 0);
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:8001/api/category");
+        const res = await axios.get("https://api.assortsmachinetools.com/api/category");
         const newData = res.data.data;
 
         // const groupedData = newData.reduce((acc, item) => {
