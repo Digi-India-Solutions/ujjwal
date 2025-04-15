@@ -25,7 +25,7 @@ const navigate = useNavigate()
             </div>
           </div>
           <div className="left">
-            <a href="www.assortsmachinetools.com" target="_blank">
+            <a href="https://www.assortsmachinetools.com/" target="_blank">
               <i class="fa-solid fa-globe"></i>
               Go To Website
             </a>
