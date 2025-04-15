@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Header.css'
 
 const Header = () => {
   const [sidetoggle,setSideToggle] = useState(false)
-
+const navigate = useNavigate()
   const handletoggleBtn =()=>{
     setSideToggle(!sidetoggle)
   }
 
   const logout = ()=>{
-    sessionStorage.clear()
-    window.location.href = "/"
+    localStorage.clear()
+    navigate('/')
+    window.location.reload()
   }
   return (
     <>

@@ -51,7 +51,7 @@ const HeaderPage = () => {
           name: key,
           items: groupedData[key],
         }))
-        .reverse();
+       
 
       setCategories(groupedArray);
     } catch (error) {

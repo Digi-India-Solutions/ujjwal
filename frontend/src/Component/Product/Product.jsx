@@ -12,8 +12,9 @@ const Product = () => {
   const getCategoryData = async () => {
     try {
       const res = await axios.get(
-        "https://api.assortsmachinetools.com/api/new-lauch-category"
+        "https://api.assortsmachinetools.com/api/new-lanch-product"
       );
+
       setData(res.data.data);
     } catch (error) {
       console.error(error);
@@ -81,27 +82,36 @@ const Product = () => {
           <Slider {...settings}>
             {data.map((item, index) => (
               <div key={index} className="slick-slide-custom">
-                <Link to={`/our-category/${item.categoryname}`}>
+                <Link to={`our-category/category/product-name/${item._id}`}>
                   <div className="box">
                     <img
                       className="product"
                       width="100%"
                       style={{ height: "200px" }}
-                      src={item.image.includes("cloudinary") ? item.image : `https://api.assortsmachinetools.com/${item.image}`}
-                      alt={item.categoryname}
+                      src={
+                        item.image1.includes("cloudinary")
+                          ? item.image
+                          : `https://api.assortsmachinetools.com/${item.image1}`
+                      }
+                      alt={`${item.productname.slice(0, 20)}...`}
                     />
                     <Typography
                       sx={{
                         fontSize: "16px",
                         fontWeight: "700",
-                        margin: "0",
+                        margin: 0,
                         padding: "5px",
                         textAlign: "center",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
                       }}
                       mt={2}
                       variant="body2"
                     >
-                      {item.categoryname}
+                      {item.productname}
                     </Typography>
                   </div>
                 </Link>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Grid, Modal, Typography } from "@mui/material";
 import "../CategoryPage/categoryPage.css";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -12,7 +12,11 @@ const CategoryPage = () => {
   const [activeCategory, setActiveCategory] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const navigate=useNavigate()
+const navigateToProduct = (id) => {
 
+  navigate(`/our-category/category/product-name/${id}`);
+};
   const getApiData = async () => {
     try {
       let res = await axios.get(
@@ -79,11 +83,12 @@ const CategoryPage = () => {
   const getApiDataNewLanch = async () => {
     try {
       const res = await axios.get(
-        "https://api.assortsmachinetools.com/api/new-lanch-product"
+        "https://api.assortsmachinetools.com/api/hot-product"
       );
       if (res.status === 200) {
+     
         const data = res.data.data;
-        const filterData = data.filter((x) => x.active === true);
+        const filterData = data.filter((x) => x.hotProduct === true);
         setNewProduct(filterData.length > 0 ? filterData : []); // Set as an array, even if empty
       }
     } catch (error) {
@@ -198,8 +203,8 @@ const CategoryPage = () => {
 
         {/* Main content area with product cards */}
         <Grid item md={7} xs={12}>
-          <div className="categoryImage">
-            <div className="overlay">
+          <div  style={{backgroundColor: "white"}}>
+            <div >
               <Container>
                 <Grid container spacing={2}>
                   {data.map((item, index) => (
@@ -255,7 +260,7 @@ const CategoryPage = () => {
                 fontSize: "18px",
               }}
             >
-              New Product Launch
+             Hot Products
             </Typography>
 
             {newProduct && newProduct.length > 0 ? (
@@ -289,7 +294,7 @@ const CategoryPage = () => {
                     <div className="launch-buttons">
                       <button
                         className="viewButton"
-                        onClick={() => handleOpenModal(product)}
+                        onClick={()=> navigateToProduct(product._id)}
                       >
                         View
                       </button>

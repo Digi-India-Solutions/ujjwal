@@ -13,6 +13,7 @@ const createRecord = async (req, res) => {
       details,
       productname,
       active,
+      hotProduct
     } = req.body;
 
     if (!categoryname || !subcategoryName || !details || !productname) {
@@ -64,6 +65,7 @@ const createRecord = async (req, res) => {
         data.active = false;
       }
 
+     data.hotProduct = hotProduct ? hotProduct : false;
       await data.save();
   
       res.status(200).json({
@@ -156,6 +158,7 @@ const updateProduct = async (req, res) => {
       }
 
       data.active = req.body.active ?? data.active;
+      data.hotProduct = req.body.hotProduct ?? data.hotProduct;
       await data.save();
       res.status(200).json({
         success: true,
@@ -248,6 +251,29 @@ const newLanchProduct = async (req, res) => {
     });
   }
 };
+
+const hotProduct = async (req, res) => {
+  try {
+    let data = await product.find({ hotProduct: true });
+    if (!data) {
+      return res.status(400).json({
+        success: true,
+        mess: "Record not found",
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        mess: "Record found",
+        data: data,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: true,
+      mess: "Internal Server Error",
+    });
+  }
+}
 module.exports = {
   createRecord,
   deleteRecord,
@@ -255,4 +281,5 @@ module.exports = {
   getproduct,
   getSinglrproduct,
   newLanchProduct,
+  hotProduct
 };

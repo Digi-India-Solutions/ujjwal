@@ -39,7 +39,11 @@ const productSchema = new mongoose.Schema({
     active:{
         type:Boolean,
         default:false
-    }
+    },
+    hotProduct:{
+        type:Boolean,
+        default:false
+    },
 })
 
 const product = mongoose.model("product" , productSchema)
