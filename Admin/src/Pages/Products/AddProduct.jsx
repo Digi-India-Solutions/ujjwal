@@ -12,6 +12,7 @@ const AddProduct = () => {
   const [catedata, setCatedata] = useState([]);
   const [subcatedata, setSubcatedata] = useState([]);
   const [active, setActive] = useState(false);
+  const [hotProduct, setHotProduct] = useState(false);
   const getApiData = async () => {
     try {
       let res = await axios.get("https://api.assortsmachinetools.com/api/category");
@@ -45,6 +46,7 @@ const AddProduct = () => {
     image4: "",
     tableData: "",
     active: false,
+
   });
 
   const getInputData = (e) => {
@@ -87,6 +89,7 @@ const AddProduct = () => {
       formData.append("image4", data.image4);
       formData.append("tableData", data.tableData);
       formData.append("active", active);
+      formData.append("hotProduct", hotProduct);
       setLoading(true);
       const res = await axios.post(
         "https://api.assortsmachinetools.com/api/product",
@@ -217,38 +220,38 @@ const AddProduct = () => {
             </div>
             <div className="col-md-3 mb-3">
               <label htmlFor="pic2" className="form-label">
-                Picture 2: <sup className="text-danger">*</sup>
+                Picture 2: 
               </label>
               <input
                 type="file"
                 name="image2"
                 onChange={getInputfile}
                 className="form-control"
-                required
+             
               />
             </div>
             <div className="col-md-3 mb-3">
               <label htmlFor="pic3" className="form-label">
-                Picture 3: <sup className="text-danger">*</sup>
+                Picture 3:
               </label>
               <input
                 type="file"
                 name="image3"
                 onChange={getInputfile}
                 className="form-control"
-                required
+               
               />
             </div>
             <div className="col-md-3 mb-3">
               <label htmlFor="pic4" className="form-label">
-                Picture 4: <sup className="text-danger">*</sup>
+                Picture 4:
               </label>
               <input
                 type="file"
                 name="image4"
                 onChange={getInputfile}
                 className="form-control"
-                required
+           
               />
             </div>
           </div>
@@ -285,6 +288,28 @@ const AddProduct = () => {
               style={{ width: "16px", height: "16px" }}
             />
             <label htmlFor="active">New Product Launch</label>
+          </div>
+          <div
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#333",
+            }}
+          >
+            <input
+              type="checkbox"
+              name="hotProduct"
+              id="hotProduct"
+              checked={hotProduct}
+              onChange={(e) => setHotProduct(e.target.checked)}
+              style={{ width: "16px", height: "16px" }}
+            />
+            <label htmlFor="active">Hot Product</label>
           </div>
           <button
             type="submit"

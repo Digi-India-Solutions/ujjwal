@@ -13,6 +13,7 @@ const enquiryRouter = require("./Route/EnquiryRouter.js");
 const subscription = require("./Model/SubscriptionModel.js");
 const subscriptionRouter = require("./Route/SubscriptionRouter.js");
 const infoCartRouter = require("./Route/InfoCartRouter.js")
+const UserRouter = require("./Route/UserRouter.js");
 const app = express();
 
 app.use(express.json());
@@ -31,11 +32,12 @@ app.use(
     methods: "GET,POST,DELETE,PATCH,PUT",
   })
 );
-app.options("*", cors());
+// app.options("*", cors());
 
 app.get("/", (req, res) => {
   res.send("Server Is Running");
 });
+app.use("/api/v1/auth",UserRouter)
 app.use("/api", categoryRouter);
 app.use("/api", productRouter);
 app.use("/api", contactRouter);

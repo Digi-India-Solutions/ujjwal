@@ -51,6 +51,24 @@ const CartPageWithEnquiryModal = () => {
         toast.error("Please fill in all required fields.");
         return;
       }
+      if(formData.phone.length !== 10){
+        toast.error("Please enter a valid phone number.");
+        return;
+      }
+      const emailRegex = /^[\w.-]+@[\w.-]+\.\w{2,}$/;
+      if (!emailRegex.test(formData.email)) {
+        toast.error("Please enter a valid email address.");
+        return;
+      }
+      if (formData.message.length < 10) {
+        toast.error("Message should be at least 10 characters long.");
+        return;
+      }
+      const phoneRegex = /^\d+$/;
+      if (!phoneRegex.test(formData.phone)) {
+        toast.error("Please enter a valid phone number.");
+        return;
+      }
       formData.cart = cartItems;
     const response=  await axios.post('https://api.assortsmachinetools.com/api/create-cart-enquiry', formData);
       if(response.status===201){

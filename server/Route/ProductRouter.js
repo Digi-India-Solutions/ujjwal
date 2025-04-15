@@ -1,5 +1,5 @@
 const productRouter = require("express").Router()
-const { createRecord, getproduct, getSinglrproduct, deleteRecord, updateProduct, newLanchProduct } = require("../Controllar/ProductControllar")
+const { createRecord, getproduct, getSinglrproduct, deleteRecord, updateProduct, newLanchProduct, hotProduct } = require("../Controllar/ProductControllar")
 const uploader = require("../Multer/Multer")
 
 
@@ -19,5 +19,6 @@ productRouter.put("/product/:_id", uploader.fields([
     { name: "image4", maxCount: 1 },
 ]), updateProduct)
 productRouter.get("/new-lanch-product", newLanchProduct)
+productRouter.get("/hot-product", hotProduct)
 
 module.exports = productRouter

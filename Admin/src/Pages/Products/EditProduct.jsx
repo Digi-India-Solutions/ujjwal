@@ -48,12 +48,17 @@ const EditProduct = () => {
         image4: '',
         tableData: '',
         active: false,
+        hotProduct:false
     });
 
     const getInputData = (e) => {
         if(e.target.name ==="active"){
             setData({ ...data, [e.target.name]: e.target.checked });
-        }else{
+        }
+        else if(e.target.name ==="hotProduct"){
+            setData({ ...data, [e.target.name]: e.target.checked });
+        }
+        else{
 
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
@@ -93,6 +98,7 @@ const EditProduct = () => {
             formData.append("image4", data.image4);
             formData.append("tableData", data.tableData);
             formData.append("active", data.active);
+            formData.append("hotProduct", data.hotProduct);
             setLoading(true);
             const res = await axios.put(`https://api.assortsmachinetools.com/api/product/${_id}`, formData);
             if (res.status === 200) {
@@ -210,6 +216,28 @@ const EditProduct = () => {
               style={{ width: "16px", height: "16px" }}
             />
             <label htmlFor="active">New Product Launch</label>
+          </div>
+          <div
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "16px",
+              fontWeight: "500",
+              color: "#333",
+            }}
+          >
+            <input
+              type="checkbox"
+              name="hotProduct"
+              id="hotProduct"
+              checked={data.hotProduct || ""}
+              onChange={getInputData}
+              style={{ width: "16px", height: "16px" }}
+            />
+            <label htmlFor="active">Hot Product</label>
           </div>
                     <button type="submit" className="mybtnself" style={{ marginBottom: 100 }}>{loading ? "Please wait..." : "Update Product"}</button>
                 </form>
