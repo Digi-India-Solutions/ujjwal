@@ -104,6 +104,9 @@ a {
 .card__img {
   width: 100%;
   transition: 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card__img img {
@@ -117,7 +120,7 @@ a {
   position: absolute;
   left: -32%;
   top: 0;
-  width: 35px;
+  width: 28px;
   height: 100%;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
@@ -172,12 +175,11 @@ a {
 }
 
 .card:hover .card__img {
-  /* transform: rotate(30deg); */
-  margin-left: 3.5rem;
+  margin-left: 0.75rem;
 }
 
 .card:hover .card__precis {
-  margin-left: 3.5rem;
+  margin-left: 3rem;
   padding: 0 1.5rem;
 }
 
@@ -251,7 +253,7 @@ footer {
 .bottomContent {
   font-size: 14px;
   color: white;
-  max-width: 100%;
+  max-width: 80%;
   margin: auto;
   margin-bottom: 10px;
 }

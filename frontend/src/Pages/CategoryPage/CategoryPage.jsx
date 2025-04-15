@@ -12,11 +12,10 @@ const CategoryPage = () => {
   const [activeCategory, setActiveCategory] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const navigate=useNavigate()
-const navigateToProduct = (id) => {
-
-  navigate(`/our-category/category/product-name/${id}`);
-};
+  const navigate = useNavigate();
+  const navigateToProduct = (id) => {
+    navigate(`/our-category/category/product-name/${id}`);
+  };
   const getApiData = async () => {
     try {
       let res = await axios.get(
@@ -86,7 +85,6 @@ const navigateToProduct = (id) => {
         "https://api.assortsmachinetools.com/api/hot-product"
       );
       if (res.status === 200) {
-     
         const data = res.data.data;
         const filterData = data.filter((x) => x.hotProduct === true);
         setNewProduct(filterData.length > 0 ? filterData : []); // Set as an array, even if empty
@@ -189,7 +187,9 @@ const navigateToProduct = (id) => {
                     {category.items.map((item, idx) => (
                       <li key={idx}>
                         <KeyboardDoubleArrowRightIcon />
-                        <Link to={`/our-category/subcategory-product/${item.subcategoryName}`}>
+                        <Link
+                          to={`/our-category/subcategory-product/${item.subcategoryName}`}
+                        >
                           {item.subcategoryName}
                         </Link>
                       </li>
@@ -203,8 +203,8 @@ const navigateToProduct = (id) => {
 
         {/* Main content area with product cards */}
         <Grid item md={7} xs={12}>
-          <div  style={{backgroundColor: "white"}}>
-            <div >
+          <div style={{ backgroundColor: "white" }}>
+            <div>
               <Container>
                 <Grid container spacing={2}>
                   {data.map((item, index) => (
@@ -213,11 +213,15 @@ const navigateToProduct = (id) => {
                         <Link to={`/our-category/${item.categoryname}`}>
                           <div className="card__img">
                             <img
-                              src={item.image.includes("cloudinary") ? item.image : `https://api.assortsmachinetools.com/${item.image}`}
+                              src={
+                                item.image.includes("cloudinary")
+                                  ? item.image
+                                  : `https://api.assortsmachinetools.com/${item.image}`
+                              }
                               alt={item.categoryname}
                             />
                           </div>
-                        
+
                           <div className="card__name">
                             <p style={{ margin: "0" }}>
                               {item.categoryname.length > 15
@@ -233,9 +237,12 @@ const navigateToProduct = (id) => {
                               fontSize: "12px",
                             }}
                           >
-                            <p className="bottomContent">
-                              {item.categoryname.length > 15
-                                ? `${item.categoryname.substring(0, 15)}...`
+                            <p className="bottomContent"
+                            style={{
+                              
+                            }}>
+                              {item.categoryname.length > 50
+                                ? `${item.categoryname.substring(0, 50)}...`
                                 : item.categoryname}
                             </p>
                           </div>
@@ -260,7 +267,7 @@ const navigateToProduct = (id) => {
                 fontSize: "18px",
               }}
             >
-             Hot Products
+              Hot Products
             </Typography>
 
             {newProduct && newProduct.length > 0 ? (
@@ -294,7 +301,7 @@ const navigateToProduct = (id) => {
                     <div className="launch-buttons">
                       <button
                         className="viewButton"
-                        onClick={()=> navigateToProduct(product._id)}
+                        onClick={() => navigateToProduct(product._id)}
                       >
                         View
                       </button>
@@ -386,7 +393,11 @@ const navigateToProduct = (id) => {
                 {selectedProduct && (
                   <>
                     <img
-                      src={selectedProduct.image1.includes("cloudinary")? selectedProduct.image1 : `https://api.assortsmachinetools.com/${selectedProduct.image1}`}
+                      src={
+                        selectedProduct.image1.includes("cloudinary")
+                          ? selectedProduct.image1
+                          : `https://api.assortsmachinetools.com/${selectedProduct.image1}`
+                      }
                       alt="Product"
                       style={{
                         width: "100%",

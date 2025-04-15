@@ -11,16 +11,19 @@ const AllSubcategoryProduct = () => {
 
   const getAllProductData = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/product");
-    
+      const res = await axios.get(
+        "https://api.assortsmachinetools.com/api/product"
+      );
+
       const resData = res.data.data;
 
       const filterData = resData.filter(
-        (item) => item.subcategoryName?.toLowerCase().trim() === subcategoryName.toLowerCase().trim()
+        (item) =>
+          item.subcategoryName?.toLowerCase().trim() ===
+          subcategoryName.toLowerCase().trim()
       );
 
       setData(filterData);
-      
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +66,9 @@ const AllSubcategoryProduct = () => {
                 {data.map((item, index) => (
                   <Grid item xs={6} sm={6} md={3} key={index}>
                     <article className="card">
-                      <Link to={`/our-category/category/product-name/${item._id}`}>
+                      <Link
+                        to={`/our-category/category/product-name/${item._id}`}
+                      >
                         <div className="card__img">
                           <img
                             src={
@@ -89,9 +94,18 @@ const AllSubcategoryProduct = () => {
                             fontSize: "12px",
                           }}
                         >
-                          <p style={{ color: "white" }}>{item.productname.length > 15
-                              ? `${item.productname.substring(0, 15)}...`
-                              : item.productname}</p>
+                          <p
+                            style={{
+                              color: "white",
+                              maxWidth: "70%",
+                              margin: "auto",
+                              marginBottom: "10px",
+                            }}
+                          >
+                            {item.productname.length > 50
+                              ? `${item.productname.substring(0, 50)}...`
+                              : item.productname}
+                          </p>
                         </div>
                       </Link>
                     </article>
@@ -116,5 +130,3 @@ const AllSubcategoryProduct = () => {
 };
 
 export default AllSubcategoryProduct;
-
-

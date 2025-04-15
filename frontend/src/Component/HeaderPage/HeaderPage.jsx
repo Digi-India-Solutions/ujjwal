@@ -1,9 +1,4 @@
-import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import logo from "../../images/logo-assorts.png";
 import "../HeaderPage/Header.css";
@@ -14,11 +9,13 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import experience from "../../images/experience.png";
-import TelegramIcon from '@mui/icons-material/Telegram';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import TelegramIcon from "@mui/icons-material/Telegram";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import EmailIcon from "@mui/icons-material/Email";
+
 import axios from "axios";
-import InstagramIcon from '@mui/icons-material/Instagram';
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LanguageSelector from "../LanguageSelector";
 const HeaderPage = () => {
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -33,7 +30,9 @@ const HeaderPage = () => {
   // Fetch and set categories
   const getApiData = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
+      const res = await axios.get(
+        "https://api.assortsmachinetools.com/api/subcategory"
+      );
       const newData = res.data.data;
 
       // Group data by category
@@ -46,12 +45,10 @@ const HeaderPage = () => {
       }, {});
 
       // Convert grouped data to array
-      const groupedArray = Object.keys(groupedData)
-        .map((key) => ({
-          name: key,
-          items: groupedData[key],
-        }))
-       
+      const groupedArray = Object.keys(groupedData).map((key) => ({
+        name: key,
+        items: groupedData[key],
+      }));
 
       setCategories(groupedArray);
     } catch (error) {
@@ -62,7 +59,9 @@ const HeaderPage = () => {
   // Fetch and set category data
   const getCategorydata = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/category");
+      const res = await axios.get(
+        "https://api.assortsmachinetools.com/api/category"
+      );
       setData(res.data.data);
     } catch (error) {
       console.log(error);
@@ -72,7 +71,9 @@ const HeaderPage = () => {
   // Fetch and set subcategory data
   const getSubCategorydata = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/subcategory");
+      const res = await axios.get(
+        "https://api.assortsmachinetools.com/api/subcategory"
+      );
       setSubCategory(res.data.data);
     } catch (error) {
       console.log(error);
@@ -82,7 +83,9 @@ const HeaderPage = () => {
   // Fetch and set product data
   const getAllProduct = async () => {
     try {
-      const res = await axios.get("https://api.assortsmachinetools.com/api/product");
+      const res = await axios.get(
+        "https://api.assortsmachinetools.com/api/product"
+      );
       // console.log("Product ", res.data.data);
       setProducts(res.data.data);
     } catch (error) {
@@ -183,37 +186,100 @@ const HeaderPage = () => {
   return (
     <>
       <header>
-        <div className="topbar" style={{ backgroundColor: "rgb(14 24 56)" }}>
-          <Container>
-            <Box className="icons">
-              <Box className="icon"></Box>
-              <div style={{ display: "flex", justifyContent: "flex-end", gap: "15px" }}>
-                <a href="https://www.facebook.com/profile.php?id=61568361916614" target="_blank" rel="noopener noreferrer">
+        <div
+          className="topbar"
+          style={{
+            backgroundColor: "rgb(14 24 56)",
+            color: "#fff",
+            padding: "10px 0",
+          }}
+        >
+          <Container maxWidth={false} disableGutters>
+            <Box
+              className="icons"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Box
+                className="icon"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <EmailIcon style={{ marginRight: "5px" }} />{" "}
+                <p>
+                  <Link
+                    className="text-decoration-none"
+                    to="mailto:business@assortsmachinetools.com"
+                    style={{ color: "#fff", fontSize: "16px", margin: 0 }}
+                  >
+                    business@assortsmachinetools.com
+                  </Link>
+                </p>
+              </Box>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "15px",
+                }}
+              >
+                <a
+                  href="https://www.facebook.com/profile.php?id=61568361916614"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FacebookIcon className="face" />
                 </a>
-                <a href="https://www.youtube.com/@assortsmachinetools-india4434" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.youtube.com/@assortsmachinetools-india4434"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <YouTubeIcon className="youtube" />
                 </a>
-                <a href="https://t.me/+U0IAB_v6QiBhZTY1" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://t.me/+U0IAB_v6QiBhZTY1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <TelegramIcon className="tgm" />
                 </a>
-                <a href="https://x.com/ASSORTS_Tools" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://x.com/ASSORTS_Tools"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <TwitterIcon className="twitr" />
                 </a>
-                <a href="https://www.instagram.com/assortsmachinetools_?igsh=MTA0NmVsN29mc2t1YQ==" target="_blank" rel="noopener noreferrer">
-  <InstagramIcon className="insta" />
-</a>
-
+                <a
+                  href="https://www.instagram.com/assortsmachinetools_?igsh=MTA0NmVsN29mc2t1YQ=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <InstagramIcon className="insta" />
+                </a>
+                <div>
+                  {" "}
+                  <LanguageSelector />
+                </div>
               </div>
             </Box>
           </Container>
         </div>
+
         <div className="for-laptop">
           <Grid className="headerMain" container spacing={2}>
             <Grid item xs={8} md={2}>
               <div className="logo">
                 <Link to={"/"}>
-                  <img src={logo} width={"100%"} height={"100%"} alt="Logo-Assorts" />
+                  <img
+                    src={logo}
+                    width={"100%"}
+                    height={"100%"}
+                    alt="Logo-Assorts"
+                  />
                 </Link>
               </div>
             </Grid>
@@ -221,10 +287,23 @@ const HeaderPage = () => {
               <div className="navItem">
                 <ul className="navbarUl">
                   <li className="navbarLi">
-                    <Link className="ul_li_links" to={"/"}>Home</Link>
+                    <Link className="ul_li_links" to={"/"}>
+                      Home
+                    </Link>
                   </li>
                   <li className="navbarLi">
-                    <Link className="ul_li_links" to={"/about"}>About</Link>
+                    <Link className="ul_li_links" to={"/about"}>
+                      About
+                    </Link>
+                  </li>
+                  <li className="navbarLi">
+                    <Link
+                      className="ul_li_links"
+                      to="https://shop.assortsmachinetools.com/"
+                      target="_blank"
+                    >
+                      Shop
+                    </Link>
                   </li>
                   <li className="navbarLi dropdown">
                     <div
@@ -237,7 +316,12 @@ const HeaderPage = () => {
                       <div className="dropdown_inner_content">
                         {categories.map((category) => (
                           <div key={category.name} className="dropdownWidth">
-                          <Link to={`/our-category/${category.name}`}> <Typography className="dropdownheading">{category.name}</Typography></Link> 
+                            <Link to={`/our-category/${category.name}`}>
+                              {" "}
+                              <Typography className="dropdownheading">
+                                {category.name}
+                              </Typography>
+                            </Link>
                             {category.items.map((item) => (
                               <p key={item._id}>
                                 <Link
@@ -245,7 +329,10 @@ const HeaderPage = () => {
                                   to={`/our-category/subcategory-product/${item.subcategoryName}`}
                                 >
                                   <KeyboardDoubleArrowRightIcon
-                                    style={{ fontSize: "14px", color: "rgb(18, 80, 141)" }}
+                                    style={{
+                                      fontSize: "14px",
+                                      color: "rgb(18, 80, 141)",
+                                    }}
                                   />
                                   {item.subcategoryName}
                                 </Link>
@@ -257,99 +344,109 @@ const HeaderPage = () => {
                     </div>
                   </li>
                   <li className="navbarLi">
-                    <Link className="ul_li_links" to={"/blog"}>Blog</Link>
+                    <Link className="ul_li_links" to={"/blog"}>
+                      Blog
+                    </Link>
                   </li>
                   <li className="navbarLi">
-                    <Link className="ul_li_links" to={"/contact"}>Contact</Link>
+                    <Link className="ul_li_links" to={"/contact"}>
+                      Contact
+                    </Link>
                   </li>
                 </ul>
               </div>
             </Grid>
             <Grid
-  item
-  xs={12}
-  md={4}
-  style={{
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: "1rem",
-  }}
->
-  {/* 🔍 Search Bar */}
-  <div className="search-container" style={{ position: "relative", flex: 1 }}>
-    <div className="search-bar" style={{ position: "relative" }}>
-      <SearchIcon
-        style={{
-          position: "absolute",
-          left: "1rem",
-          top: "50%",
-          transform: "translateY(-50%)",
-          color: "#1d2c59",
-        }}
-      />
-      <input
-        className="search-input"
-        type="text"
-        placeholder="Search"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleSearch}
-        style={{
-          paddingLeft: "3rem",
-          backgroundColor: "#fff",
-          borderRadius: "5px",
-          border: "1px solid #ccc",
-          width: "100%",
-        }}
-      />
-    </div>
+              item
+              xs={12}
+              md={4}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "1rem",
+              }}
+            >
+              {/* 🔍 Search Bar */}
+              <div
+                className="search-container"
+                style={{ position: "relative", flex: 1 }}
+              >
+                <div className="search-bar" style={{ position: "relative" }}>
+                  <SearchIcon
+                    style={{
+                      position: "absolute",
+                      left: "1rem",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      color: "#1d2c59",
+                    }}
+                  />
+                  <input
+                    className="search-input"
+                    type="text"
+                    placeholder="Search"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={handleSearch}
+                    style={{
+                      paddingLeft: "3rem",
+                      backgroundColor: "#fff",
+                      borderRadius: "5px",
+                      border: "1px solid #ccc",
+                      width: "100%",
+                    }}
+                  />
+                </div>
 
-    {/* 🔍 Search Results */}
-    {query && filteredResults.length > 0 && (
-      <div className="search-results">
-        <ul>
-          {filteredResults.map((result, index) => (
-            <li key={index} onClick={() => handleNavigation(result)}>
-              {result.name}
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
-  </div>
+                {/* 🔍 Search Results */}
+                {query && filteredResults.length > 0 && (
+                  <div className="search-results">
+                    <ul>
+                      {filteredResults.map((result, index) => (
+                        <li
+                          key={index}
+                          onClick={() => handleNavigation(result)}
+                        >
+                          {result.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
 
-  {/* 🛒 Cart Option */}
-  <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "8px",
-        cursor: "pointer",
-        padding: "5px 10px",
-        border: "1px solid #ccc",
-        borderRadius: "8px",
-        backgroundColor: "#f8f8f8",
-      }}
-      onClick={() => navigate("/addtocart")} // on click go to /cart
-    >
-      <img
-        src="/cart.png" // make sure this image is in the /public folder
-        alt="cart"
-        width="25"
-        height="25"
-      />
-    </div>
+              {/* 🛒 Cart Option */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  cursor: "pointer",
+                  padding: "5px 10px",
+                  border: "1px solid #ccc",
+                  borderRadius: "8px",
+                  backgroundColor: "#f8f8f8",
+                }}
+                onClick={() => navigate("/addtocart")} // on click go to /cart
+              >
+                <img
+                  src="/cart.png" // make sure this image is in the /public folder
+                  alt="cart"
+                  width="25"
+                  height="25"
+                />
+              </div>
 
-  {/* 🖼️ Experience Image */}
-  <img
-    style={{ position: "relative" }}
-    width={"20%"}
-    src={experience}
-    alt="experience"
-  />
-</Grid>
-</Grid>
+              {/* 🖼️ Experience Image */}
+              <img
+                style={{ position: "relative" }}
+                width={"20%"}
+                src={experience}
+                alt="experience"
+              />
+            </Grid>
+          </Grid>
         </div>
 
         <div className="responsive-mobile">
@@ -359,6 +456,7 @@ const HeaderPage = () => {
                 <img src={logo} width={"100%"} alt="" />
               </Link>
             </Typography>
+          
             <button className="menu-button" onClick={toggleMenu}>
               ☰
             </button>
@@ -372,6 +470,15 @@ const HeaderPage = () => {
             <li className="responsiveli">
               <Link to={"/about"} onClick={closeMenu}>
                 About
+              </Link>
+            </li>
+            <li className="responsiveli">
+              <Link
+                to={"https://shop.assortsmachinetools.com/"}
+                target="_blank"
+                onClick={closeMenu}
+              >
+                Shop
               </Link>
             </li>
             <li className="responsiveli">
@@ -441,9 +548,9 @@ const HeaderPage = () => {
                 Cart
               </Link>
             </li>
+            
           </ul>
         </div>
-
       </header>
     </>
   );
