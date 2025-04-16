@@ -5,6 +5,8 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import PhoneInput from "react-phone-input-2";
+import { isValidPhoneNumber } from "libphonenumber-js";
 
 const CategoryPage = () => {
   const [data, setData] = useState([]);
@@ -132,6 +134,10 @@ const CategoryPage = () => {
   const handleEnquirySubmit = async (e) => {
     e.preventDefault();
     try {
+      if (!isValidPhoneNumber(enquiryForm.phone)) {
+        toast.error("Please enter a valid phone number.");
+        return;
+      }
       let res = await axios.post(
         "https://api.assortsmachinetools.com/api/create-enquiry",
         enquiryForm
@@ -237,10 +243,7 @@ const CategoryPage = () => {
                               fontSize: "12px",
                             }}
                           >
-                            <p className="bottomContent"
-                            style={{
-                              
-                            }}>
+                            <p className="bottomContent" style={{}}>
                               {item.categoryname.length > 50
                                 ? `${item.categoryname.substring(0, 50)}...`
                                 : item.categoryname}
@@ -267,7 +270,7 @@ const CategoryPage = () => {
                 fontSize: "18px",
               }}
             >
-              Hot Products
+              Hot Selling Products
             </Typography>
 
             {newProduct && newProduct.length > 0 ? (
@@ -504,26 +507,41 @@ const CategoryPage = () => {
                   </div>
 
                   <div style={{ marginBottom: "15px" }}>
-                    <label>Phone</label>
-                    <input
-                      type="tel"
-                      required
-                      name="phone"
-                      value={enquiryForm.phone}
-                      onChange={(e) =>
-                        setEnquiryForm({
-                          ...enquiryForm,
-                          phone: e.target.value,
-                        })
-                      }
-                      style={{
-                        width: "100%",
-                        padding: "8px",
-                        borderRadius: "5px",
-                        color: "black",
-                      }}
-                    />
-                  </div>
+  <label>Phone</label>
+  <PhoneInput
+    country={"in"} // Default country code (India)
+    value={enquiryForm.phone}
+    onChange={(value) =>
+      setEnquiryForm((prev) => ({ ...prev, phone: "+" + value }))
+    }
+    specialLabel="" // Removes the default "Phone" label
+    inputStyle={{ 
+      width: "100%",
+      padding: "8px 12px", // Adjust padding for better spacing
+      borderRadius: "5px", // Make borders rounded
+      color: "black",
+      fontSize: "16px",
+      border: "1px solid #ccc", // Add a border around the input
+    }}
+    containerStyle={{
+      width: "100%", // Ensure the container takes full width
+      display: "flex",
+      flexDirection: "row", // Aligns flag and input side by side
+      alignItems: "center", // Vertically centers the flag and input
+    }}
+    buttonStyle={{
+      borderRadius: "5px 0 0 5px", // Round left corners for flag button
+      padding: "0 0px", // Adjust flag button padding
+      height: "100%", // Ensures the button height matches the input height
+    }}
+    inputProps={{
+      name: "phone",
+      required: true,
+      autoFocus: false,
+    }}
+  />
+</div>
+
 
                   <div style={{ marginBottom: "15px" }}>
                     <label>Message</label>

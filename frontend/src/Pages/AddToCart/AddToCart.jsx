@@ -9,7 +9,8 @@ import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-
+import PhoneInput from 'react-phone-input-2';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 
 
 const CartPageWithEnquiryModal = () => {
@@ -51,10 +52,7 @@ const CartPageWithEnquiryModal = () => {
         toast.error("Please fill in all required fields.");
         return;
       }
-      if(formData.phone.length !== 10){
-        toast.error("Please enter a valid phone number.");
-        return;
-      }
+    
       const emailRegex = /^[\w.-]+@[\w.-]+\.\w{2,}$/;
       if (!emailRegex.test(formData.email)) {
         toast.error("Please enter a valid email address.");
@@ -64,11 +62,12 @@ const CartPageWithEnquiryModal = () => {
         toast.error("Message should be at least 10 characters long.");
         return;
       }
-      const phoneRegex = /^\d+$/;
-      if (!phoneRegex.test(formData.phone)) {
-        toast.error("Please enter a valid phone number.");
+   
+      if (!isValidPhoneNumber(formData.phone)) {
+        toast.error('Please enter a valid phone number.');
         return;
       }
+     
       formData.cart = cartItems;
     const response=  await axios.post('https://api.assortsmachinetools.com/api/create-cart-enquiry', formData);
       if(response.status===201){
@@ -214,15 +213,23 @@ const CartPageWithEnquiryModal = () => {
       />
     </Grid>
     <Grid item xs={12} sm={6}>
-      <TextField
-        fullWidth
-        required
-        label="Phone"
-        name="phone"
-        value={formData.phone}
-        onChange={handleFormChange}
-      />
-    </Grid>
+  <PhoneInput
+    country={'in'} // default country
+    value={formData.phone}
+    onChange={(value) =>
+      setFormData((prev) => ({ ...prev, phone: '+' + value }))
+    }
+    inputProps={{
+      name: 'phone',
+      required: true,
+      autoFocus: false,
+    }}
+    inputStyle={{
+      width: '100%',
+    }}
+  />
+</Grid>
+
     <Grid item xs={12}>
       <TextField
         fullWidth

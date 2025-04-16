@@ -17,7 +17,7 @@ import Blog from './Pages/BlogPage/Blog';
 import BlogDetails from './Pages/BlogDetail/BlogDetails';
 import AddToCart from './Pages/AddToCart/AddToCart'
 import AllSubcategoryProduct from './Component/SubCategoryProduct/AllSubcategoryProduct';
-
+import 'react-phone-input-2/lib/material.css';
 const App = () => {
   return (
     <>
