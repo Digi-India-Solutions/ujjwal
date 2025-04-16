@@ -46,7 +46,7 @@ const SearchByCategory = () => {
           <Typography
             style={{
               textAlign: "center",
-              color: "white",
+              color: "#1d2c59",
               fontFamily: "poppins",
               fontWeight: "600",
             }}
@@ -87,7 +87,7 @@ const SearchByCategory = () => {
                   </article>
                 </Grid>
               ))}
-            </Grid> : <Typography variant="h4" color={"white"} textAlign={"center"} mt={5}>Currently Out of Stock</Typography>
+            </Grid> : <Typography variant="h4" color={"#1d2c59"} textAlign={"center"} mt={5}>Currently Out of Stock</Typography>
           }
         </Container>
       </div>

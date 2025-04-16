@@ -260,7 +260,7 @@ const navigateToProduct = (id) => {
                 fontSize: "18px",
               }}
             >
-             Hot Products
+             Hot Selling Products
             </Typography>
 
             {newProduct && newProduct.length > 0 ? (
