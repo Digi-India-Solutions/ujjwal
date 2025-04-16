@@ -51,7 +51,7 @@ const AllSubcategoryProduct = () => {
             <Typography
               style={{
                 textAlign: "center",
-                color: "white",
+                color: "#1d2c59",
                 fontFamily: "poppins",
                 fontWeight: "600",
               }}
@@ -115,7 +115,7 @@ const AllSubcategoryProduct = () => {
             ) : (
               <Typography
                 variant="h4"
-                color={"white"}
+                color={"#1d2c59"}
                 textAlign={"center"}
                 mt={5}
               >

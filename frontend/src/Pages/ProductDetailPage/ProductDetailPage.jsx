@@ -76,7 +76,7 @@ const ProductDetailPage = () => {
                 Our Products
               </Typography>
               <Breadcrumbs className="breadCrumb_names" aria-label="breadcrumb">
-                <Link to="/">Home</Link> /<Link to="/">{data.categoryname}</Link> /<Link to="/">{data.subcategoryName}</Link>/<Link to="/">Product-Detail</Link>
+                <Link to="/">Home</Link> /<Link to={`/our-category/${data.categoryname}`}>{data.categoryname}</Link> /<Link to={`/our-category/subcategory-product/${data.subcategoryName}`}>{data.subcategoryName}</Link>/<Link to="/">Product-Detail</Link>
               </Breadcrumbs>
             </nav>
           </Container>

@@ -228,21 +228,24 @@ footer {
 }
 
 .categoryImage {
-  background-image: url("../../images/category.jpg");
+  /* background-image: url("../../images/category.jpg"); */
+  background-color: white;
   width: 100%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* border-radius: 32px; */
-}
-
-.overlay {
-  background-color: rgba(0, 0, 0, 0.584);
-  width: 100%;
   padding-top: 2rem;
   padding-bottom: 2rem;
   /* border-radius: 32px; */
 }
+
+/* .overlay {
+  background-color: rgba(0, 0, 0, 0.584);
+  width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-radius: 32px;
+} */
 
 .CardContentBottom {
   color: black;
@@ -303,6 +306,7 @@ footer {
   transition: 1s ease;
   line-height: 35px;
   border-radius: 0px;
+  border-radius: 15px;
 }
 
 .sidebar-category {
